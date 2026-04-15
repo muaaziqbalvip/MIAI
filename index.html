@@ -1,405 +1,1609 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="MI AI - Advanced Intelligence by Muaaz Iqbal | Muslim Islam Org" />
-  <meta name="author" content="Muaaz Iqbal" />
-  <title>MI AI — Muaaz Intelligence</title>
-  <link rel="icon" href="https://i.ibb.co/1t0KstMG/file-0000000090007208b1864eebb1423b3e.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Outfit:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="src/styles/main.css" />
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>MI AI — Muaaz Intelligence</title>
+<meta name="description" content="MI AI by Muaaz Iqbal | Muslim Islam Org"/>
+<link rel="icon" href="https://i.ibb.co/1t0KstMG/file-0000000090007208b1864eebb1423b3e.png"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700;800;900&family=Amiri:wght@400;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css"/>
+<style>
+:root{
+  --p:#7C6FFF;--ps:#6358e8;--pl:#a096ff;
+  --s:#00D4AA;--acc:#FF6B6B;--gold:#FFD700;
+  --bg:#08080F;--bgc:#10101A;--bgs:#0C0C16;
+  --bgi:#18182A;--tp:#F0F0FF;--ts:#9090B8;
+  --tm:#505070;--br:#222236;--brl:#2E2E48;
+  --sh:0 4px 24px rgba(124,111,255,.18);
+  --r:12px;--rl:20px;--tr:.2s cubic-bezier(.4,0,.2,1);
+  --fm:'Outfit',sans-serif;--fa:'Amiri',serif;--fc:'JetBrains Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden;font-family:var(--fm);background:var(--bg);color:var(--tp)}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--brl);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--p)}
+
+/* ── SPLASH ── */
+#splash{position:fixed;inset:0;background:radial-gradient(ellipse at center,#14142A 0%,#08080F 70%);display:flex;align-items:center;justify-content:center;z-index:9999;transition:opacity .6s,visibility .6s}
+#splash.out{opacity:0;visibility:hidden;pointer-events:none}
+.sp-box{text-align:center;animation:fadeUp .8s ease}
+.sp-logo{width:100px;height:100px;border-radius:50%;box-shadow:0 0 60px rgba(124,111,255,.7);animation:pulse 2s ease infinite;margin-bottom:20px}
+@keyframes pulse{0%,100%{box-shadow:0 0 40px rgba(124,111,255,.6)}50%{box-shadow:0 0 90px rgba(124,111,255,.95),0 0 130px rgba(0,212,170,.2)}}
+.sp-title{font-size:3.5rem;font-weight:900;background:linear-gradient(135deg,#a096ff,#00D4AA,#FFD700);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:8px}
+.sp-arabic{font-family:var(--fa);font-size:1.3rem;color:var(--gold);margin:10px 0;direction:rtl}
+.sp-sub{color:var(--ts);font-size:.85rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:28px}
+.sp-bar{width:220px;height:3px;background:var(--br);border-radius:2px;margin:0 auto;overflow:hidden}
+.sp-fill{height:100%;background:linear-gradient(90deg,var(--p),var(--s));animation:loadBar 2.4s ease forwards}
+@keyframes loadBar{from{width:0}to{width:100%}}
+
+/* ── AUTH ── */
+#auth{flex:1;display:flex;align-items:center;justify-content:center;min-height:100vh;overflow-y:auto;background:radial-gradient(ellipse at 30% 50%,#14142A 0%,#08080F 60%)}
+.ac{width:100%;max-width:420px;padding:20px}
+.acard{background:var(--bgc);border:1px solid var(--br);border-radius:var(--rl);padding:38px 34px;box-shadow:0 20px 60px rgba(0,0,0,.5);animation:fadeUp .5s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.alogo{display:block;width:68px;height:68px;border-radius:50%;margin:0 auto 18px;box-shadow:0 0 30px rgba(124,111,255,.5)}
+.acard h2{text-align:center;font-size:1.8rem;font-weight:800;background:linear-gradient(135deg,var(--pl),var(--s));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:6px}
+.asub{text-align:center;font-family:var(--fa);color:var(--gold);font-size:1rem;margin-bottom:22px}
+.atabs{display:flex;background:var(--bg);border-radius:var(--r);padding:4px;margin-bottom:22px;gap:4px}
+.atab{flex:1;padding:9px;border:none;background:transparent;color:var(--ts);border-radius:8px;cursor:pointer;font-family:var(--fm);font-weight:600;font-size:.88rem;transition:var(--tr)}
+.atab.on{background:var(--p);color:#fff}
+.aform{display:flex;flex-direction:column;gap:11px}
+.ainput{width:100%;padding:12px 15px;background:var(--bgi);border:1px solid var(--br);border-radius:var(--r);color:var(--tp);font-family:var(--fm);font-size:.92rem;outline:none;transition:var(--tr)}
+.ainput:focus{border-color:var(--p);box-shadow:0 0 0 3px rgba(124,111,255,.12)}
+.abtn{display:flex;align-items:center;justify-content:center;gap:9px;padding:12px 18px;border:none;border-radius:var(--r);cursor:pointer;font-family:var(--fm);font-weight:700;font-size:.92rem;transition:var(--tr)}
+.abtn.pri{background:linear-gradient(135deg,var(--p),var(--ps));color:#fff;box-shadow:0 4px 16px rgba(124,111,255,.35)}
+.abtn.pri:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(124,111,255,.5)}
+.abtn.goo{background:#fff;color:#333;border:1px solid #ddd}
+.abtn.goo:hover{background:#f5f5f5}
+.afoot{text-align:center;font-size:.78rem;color:var(--tm);margin-top:18px}
+.err-msg{background:rgba(255,107,107,.1);border:1px solid rgba(255,107,107,.3);color:#ff9090;padding:9px 13px;border-radius:8px;font-size:.83rem;display:none}
+.err-msg.show{display:block}
+
+/* ── MAIN APP ── */
+#app{display:flex;height:100vh;overflow:hidden}
+
+/* ── SIDEBAR ── */
+.sb{width:272px;min-width:272px;background:var(--bgs);border-right:1px solid var(--br);display:flex;flex-direction:column;height:100vh;overflow:hidden;transition:transform var(--tr),width var(--tr),min-width var(--tr)}
+.sb.col{width:0;min-width:0}
+.sb-hd{display:flex;align-items:center;gap:11px;padding:18px 14px;border-bottom:1px solid var(--br);flex-shrink:0}
+.sb-logo{width:34px;height:34px;border-radius:50%;box-shadow:0 0 12px rgba(124,111,255,.5)}
+.sb-name{font-size:1.1rem;font-weight:900;background:linear-gradient(135deg,var(--pl),var(--s));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:3px;flex:1}
+.sb-tog{background:none;border:none;color:var(--ts);cursor:pointer;padding:6px;border-radius:8px;transition:var(--tr)}
+.sb-tog:hover{background:var(--br);color:var(--tp)}
+.new-btn{display:flex;align-items:center;gap:9px;margin:11px 14px;padding:10px 14px;background:linear-gradient(135deg,var(--p),var(--ps));border:none;border-radius:var(--r);color:#fff;cursor:pointer;font-family:var(--fm);font-weight:600;font-size:.88rem;box-shadow:0 4px 14px rgba(124,111,255,.3);transition:var(--tr)}
+.new-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(124,111,255,.45)}
+.nav-sec{font-size:.68rem;font-weight:700;color:var(--tm);letter-spacing:2px;text-transform:uppercase;padding:7px 18px 5px}
+.navs{padding:6px 10px;overflow-y:auto;flex-shrink:0}
+.nitem{display:flex;align-items:center;gap:9px;width:100%;padding:8px 11px;background:none;border:none;border-radius:9px;color:var(--ts);cursor:pointer;font-family:var(--fm);font-size:.85rem;font-weight:500;transition:var(--tr);text-align:left;white-space:nowrap}
+.nitem:hover{background:var(--br);color:var(--tp)}
+.nitem.on{background:rgba(124,111,255,.14);color:var(--pl)}
+.nitem svg{flex-shrink:0}
+.hist{flex:1;overflow-y:auto;padding:7px 10px;border-top:1px solid var(--br)}
+.hi{display:flex;align-items:center;gap:7px;padding:7px 10px;border-radius:8px;cursor:pointer;color:var(--ts);font-size:.81rem;transition:var(--tr)}
+.hi:hover{background:var(--br);color:var(--tp)}
+.hi.on{background:rgba(124,111,255,.11);color:var(--pl)}
+.hi-txt{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.hi-del{background:none;border:none;color:var(--tm);cursor:pointer;padding:2px 4px;border-radius:4px;opacity:0;transition:var(--tr);font-size:.85rem;line-height:1}
+.hi:hover .hi-del{opacity:1}
+.hi-del:hover{color:var(--acc)}
+.sb-ft{padding:11px 14px;border-top:1px solid var(--br);flex-shrink:0}
+.upr{display:flex;align-items:center;gap:9px}
+.uav{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--p),var(--s));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.88rem;flex-shrink:0}
+.uinfo{flex:1;overflow:hidden}
+.uname{display:block;font-weight:600;font-size:.85rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.uemail{display:block;font-size:.72rem;color:var(--tm);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lout{background:none;border:none;color:var(--tm);cursor:pointer;padding:6px;border-radius:6px;transition:var(--tr)}
+.lout:hover{background:rgba(255,107,107,.15);color:var(--acc)}
+
+/* ── MAIN CONTENT ── */
+.mc{flex:1;display:flex;flex-direction:column;height:100vh;overflow:hidden}
+.mhd{display:flex;align-items:center;gap:11px;padding:11px 18px;border-bottom:1px solid var(--br);background:rgba(12,12,22,.85);backdrop-filter:blur(12px);flex-shrink:0;z-index:10}
+.mob-menu{background:none;border:none;color:var(--ts);cursor:pointer;padding:7px;border-radius:8px;transition:var(--tr);display:none}
+.mob-menu:hover{background:var(--br);color:var(--tp)}
+.hd-mid{flex:1;display:flex;align-items:center;gap:10px;overflow:hidden}
+.mode-badge{padding:4px 12px;background:rgba(124,111,255,.13);border:1px solid rgba(124,111,255,.28);border-radius:20px;color:var(--pl);font-size:.78rem;font-weight:600;white-space:nowrap}
+.msel{padding:6px 11px;background:var(--bgi);border:1px solid var(--br);border-radius:var(--r);color:var(--tp);font-family:var(--fm);font-size:.8rem;cursor:pointer;outline:none;max-width:240px;transition:var(--tr)}
+.msel:focus{border-color:var(--p)}
+.hd-acts{display:flex;gap:5px;flex-shrink:0}
+.hbtn{background:none;border:none;color:var(--ts);cursor:pointer;padding:7px;border-radius:8px;transition:var(--tr)}
+.hbtn:hover{background:var(--br);color:var(--tp)}
+
+/* ── CHAT ── */
+.chat{flex:1;overflow-y:auto;padding:18px 20px;display:flex;flex-direction:column}
+.welcome{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px 16px;animation:fadeUp .5s ease}
+.wlogo{width:86px;height:86px;border-radius:50%;box-shadow:0 0 50px rgba(124,111,255,.5);margin-bottom:18px;animation:pulse 3s ease infinite}
+.wtitle{font-size:2.8rem;font-weight:900;background:linear-gradient(135deg,#a096ff,#00D4AA,#FFD700);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:6px;margin-bottom:8px}
+.warabic{font-family:var(--fa);font-size:1.25rem;color:var(--gold);margin-bottom:6px;direction:rtl}
+.wsub{color:var(--ts);font-size:.87rem;margin-bottom:30px}
+.wsugs{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:9px;width:100%;max-width:680px}
+.wsug{padding:11px 14px;background:var(--bgc);border:1px solid var(--br);border-radius:var(--r);color:var(--ts);cursor:pointer;font-family:var(--fm);font-size:.81rem;text-align:left;transition:var(--tr);line-height:1.45}
+.wsug:hover{background:rgba(124,111,255,.09);border-color:rgba(124,111,255,.35);color:var(--tp);transform:translateY(-2px)}
+.msgs{display:flex;flex-direction:column;gap:18px;padding-bottom:8px}
+.msg{display:flex;gap:12px;animation:fadeUp .3s ease;max-width:100%}
+.msg.u{flex-direction:row-reverse}
+.mav{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.82rem;flex-shrink:0;overflow:hidden}
+.msg.u .mav{background:linear-gradient(135deg,var(--p),var(--ps))}
+.msg.a .mav{background:linear-gradient(135deg,var(--s),#007a5e)}
+.mav img{width:100%;height:100%;object-fit:cover}
+.mcont{flex:1;max-width:calc(100% - 55px)}
+.msg.u .mcont{display:flex;flex-direction:column;align-items:flex-end}
+.mbub{padding:13px 17px;border-radius:16px;line-height:1.72;font-size:.93rem;position:relative}
+.msg.u .mbub{background:linear-gradient(135deg,var(--p),var(--ps));color:#fff;border-bottom-right-radius:4px;max-width:85%}
+.msg.a .mbub{background:var(--bgc);border:1px solid var(--br);color:var(--tp);border-bottom-left-radius:4px;width:100%;max-width:100%}
+.mtime{font-size:.69rem;color:var(--tm);margin-top:4px;padding:0 3px}
+/* markdown */
+.mbub h1,.mbub h2,.mbub h3,.mbub h4{margin:14px 0 7px;color:var(--pl);font-weight:700}
+.mbub h1{font-size:1.35rem}.mbub h2{font-size:1.18rem}.mbub h3{font-size:1.03rem}
+.mbub p{margin-bottom:9px}
+.mbub ul,.mbub ol{padding-left:19px;margin-bottom:9px}
+.mbub li{margin-bottom:3px}
+.mbub code{font-family:var(--fc);font-size:.83em;background:rgba(124,111,255,.14);padding:2px 6px;border-radius:4px;color:var(--pl)}
+.mbub pre{margin:11px 0;border-radius:10px;overflow:hidden;position:relative;background:#0d1117}
+.mbub pre code{background:none;padding:14px 16px;color:inherit;font-size:.83rem;display:block;overflow-x:auto}
+.mbub blockquote{border-left:3px solid var(--p);padding-left:11px;margin:9px 0;color:var(--ts);font-style:italic}
+.mbub table{width:100%;border-collapse:collapse;margin:9px 0;font-size:.85rem}
+.mbub th{background:rgba(124,111,255,.18);padding:7px 11px;text-align:left;border:1px solid var(--br);color:var(--pl)}
+.mbub td{padding:6px 11px;border:1px solid var(--br)}
+.mbub tr:nth-child(even) td{background:rgba(255,255,255,.03)}
+.mbub a{color:var(--s);text-decoration:none}.mbub a:hover{text-decoration:underline}
+.mbub strong{color:var(--tp);font-weight:700}
+/* code block extras */
+.cbw{position:relative}
+.clang{position:absolute;top:8px;left:12px;font-size:.68rem;color:var(--tm);font-family:var(--fc);text-transform:uppercase;letter-spacing:1px}
+.ccpy{position:absolute;top:6px;right:8px;padding:3px 10px;background:var(--br);border:none;border-radius:6px;color:var(--ts);cursor:pointer;font-size:.72rem;font-family:var(--fm);transition:var(--tr);z-index:1}
+.ccpy:hover{background:var(--p);color:#fff}
+/* msg actions */
+.macts{display:flex;gap:5px;margin-top:6px;opacity:0;transition:var(--tr)}
+.msg:hover .macts{opacity:1}
+.mact{background:none;border:none;color:var(--tm);cursor:pointer;padding:3px 8px;border-radius:6px;font-size:.72rem;transition:var(--tr);font-family:var(--fm);display:flex;align-items:center;gap:3px}
+.mact:hover{background:var(--br);color:var(--tp)}
+/* typing */
+.typing{display:flex;gap:5px;padding:13px 17px;background:var(--bgc);border:1px solid var(--br);border-radius:16px;border-bottom-left-radius:4px;width:fit-content}
+.td{width:8px;height:8px;border-radius:50%;background:var(--p);animation:tdbounce 1.4s ease infinite}
+.td:nth-child(2){animation-delay:.2s}.td:nth-child(3){animation-delay:.4s}
+@keyframes tdbounce{0%,60%,100%{transform:translateY(0);opacity:.5}30%{transform:translateY(-8px);opacity:1}}
+/* file attach */
+.fatth{display:flex;align-items:center;gap:9px;padding:9px 13px;background:rgba(124,111,255,.09);border:1px solid rgba(124,111,255,.25);border-radius:9px;margin-top:7px;font-size:.83rem;color:var(--ts)}
+.chatimg{max-width:380px;border-radius:11px;margin-top:9px;cursor:pointer;transition:var(--tr)}
+.chatimg:hover{transform:scale(1.02)}
+
+/* ── FILE PREVIEW BAR ── */
+.fpbar{display:flex;align-items:center;gap:9px;padding:9px 18px;background:var(--bgc);border-top:1px solid var(--br);flex-wrap:wrap}
+.fpbar.hid{display:none}
+.fpi{display:flex;align-items:center;gap:6px;padding:5px 10px;background:var(--bgi);border:1px solid var(--br);border-radius:7px;font-size:.78rem;color:var(--ts)}
+.fpi button{background:none;border:none;color:var(--tm);cursor:pointer;font-size:.95rem;line-height:1;padding:0 2px}
+.fp-clear{background:none;border:none;color:var(--tm);cursor:pointer;padding:4px;border-radius:4px;margin-left:auto}
+
+/* ── INPUT ── */
+.inp-area{border-top:1px solid var(--br);padding:14px 18px 10px;background:rgba(8,8,15,.92);flex-shrink:0}
+.inp-tools{display:flex;gap:3px;margin-bottom:9px;flex-wrap:wrap}
+.tbtn{display:flex;align-items:center;justify-content:center;width:34px;height:34px;background:var(--bgi);border:1px solid var(--br);border-radius:8px;color:var(--ts);cursor:pointer;transition:var(--tr);flex-shrink:0}
+.tbtn:hover,.tbtn.on{border-color:var(--p);color:var(--pl);background:rgba(124,111,255,.09)}
+.inp-wrap{display:flex;align-items:flex-end;gap:9px;background:var(--bgi);border:1px solid var(--br);border-radius:var(--rl);padding:9px 11px 9px 15px;transition:var(--tr)}
+.inp-wrap:focus-within{border-color:var(--p);box-shadow:0 0 0 3px rgba(124,111,255,.1)}
+#minput{flex:1;background:none;border:none;outline:none;color:var(--tp);font-family:var(--fm);font-size:.93rem;line-height:1.5;resize:none;max-height:200px;overflow-y:auto}
+#minput::placeholder{color:var(--tm)}
+.sbtn{display:flex;align-items:center;justify-content:center;width:37px;height:37px;background:linear-gradient(135deg,var(--p),var(--ps));border:none;border-radius:10px;color:#fff;cursor:pointer;transition:var(--tr);flex-shrink:0}
+.sbtn:hover{transform:scale(1.06);box-shadow:0 4px 14px rgba(124,111,255,.4)}
+.sbtn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.inp-ft{text-align:center;font-size:.69rem;color:var(--tm);padding-top:7px}
+
+/* ── PROGRESS ── */
+.prog-box{padding:12px 17px;background:var(--bgc);border:1px solid var(--br);border-radius:var(--r);margin:6px 0}
+.prog-lbl{font-size:.8rem;color:var(--ts);margin-bottom:7px}
+.prog-bar{height:4px;background:var(--br);border-radius:2px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--p),var(--s));border-radius:2px;transition:width .3s ease}
+
+/* ── MODALS ── */
+.mov{position:fixed;inset:0;background:rgba(0,0,0,.72);backdrop-filter:blur(4px);z-index:1000;display:none}
+.mov.show{display:block}
+.modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.95);width:90%;max-width:480px;background:var(--bgc);border:1px solid var(--br);border-radius:var(--rl);z-index:1001;box-shadow:0 20px 60px rgba(0,0,0,.55);opacity:0;transition:all .2s ease;display:none}
+.modal.wide{max-width:620px}
+.modal.show{display:block;opacity:1;transform:translate(-50%,-50%) scale(1)}
+.mhd2{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid var(--br)}
+.mhd2 h3{font-size:1.05rem;font-weight:700}
+.mhd2 button{background:none;border:none;color:var(--ts);cursor:pointer;font-size:1.1rem;padding:4px 8px;border-radius:6px;transition:var(--tr)}
+.mhd2 button:hover{background:var(--br);color:var(--tp)}
+.mbdy{padding:22px;display:flex;flex-direction:column;gap:13px;max-height:58vh;overflow-y:auto}
+.minp{width:100%;padding:10px 13px;background:var(--bgi);border:1px solid var(--br);border-radius:var(--r);color:var(--tp);font-family:var(--fm);font-size:.88rem;outline:none;transition:var(--tr);resize:vertical}
+.minp:focus{border-color:var(--p)}
+.mft{display:flex;gap:9px;padding:14px 22px;border-top:1px solid var(--br);justify-content:flex-end}
+.mbtn2{padding:9px 18px;border:none;border-radius:var(--r);cursor:pointer;font-family:var(--fm);font-weight:600;font-size:.86rem;transition:var(--tr)}
+.mbtn2.pri{background:linear-gradient(135deg,var(--p),var(--ps));color:#fff}
+.mbtn2.pri:hover{transform:translateY(-1px);box-shadow:0 4px 14px rgba(124,111,255,.35)}
+.mbtn2.sec{background:var(--bgi);border:1px solid var(--br);color:var(--ts)}
+.chk-lbl{display:flex;align-items:center;gap:9px;font-size:.88rem;color:var(--ts);cursor:pointer}
+.chk-lbl input{width:15px;height:15px;cursor:pointer;accent-color:var(--p)}
+.szgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}
+.szbtn{padding:7px;background:var(--bgi);border:1px solid var(--br);border-radius:8px;color:var(--ts);cursor:pointer;font-size:.75rem;transition:var(--tr);font-family:var(--fm)}
+.szbtn.on{border-color:var(--p);color:var(--pl);background:rgba(124,111,255,.14)}
+.dual-cfg{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+.dual-cfg label{display:block;font-size:.77rem;color:var(--tm);margin-bottom:5px;text-transform:uppercase;letter-spacing:1px}
+
+/* ── DUAL AI ── */
+.dual-wrap{display:flex;gap:16px;margin:9px 0}
+.dual-panel{flex:1;background:var(--bgc);border:1px solid var(--br);border-radius:var(--r);overflow:hidden}
+.dp-hd{padding:9px 13px;font-weight:700;font-size:.82rem;display:flex;align-items:center;gap:7px;border-bottom:1px solid var(--br)}
+.dp-alpha{background:rgba(124,111,255,.14);color:var(--pl)}
+.dp-beta{background:rgba(0,212,170,.1);color:var(--s)}
+.dp-body{padding:13px;font-size:.86rem;line-height:1.6;max-height:280px;overflow-y:auto}
+
+/* ── VOICE ── */
+.voice-ind{display:flex;align-items:center;gap:8px;padding:7px 13px;background:rgba(255,107,107,.09);border:1px solid rgba(255,107,107,.28);border-radius:20px;font-size:.8rem;color:var(--acc);margin:7px 0}
+.vpulse{width:9px;height:9px;border-radius:50%;background:var(--acc);animation:vpulse .8s ease infinite}
+@keyframes vpulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.65)}}
+
+/* ── TOAST ── */
+.toast-wrap{position:fixed;bottom:22px;right:22px;display:flex;flex-direction:column;gap:9px;z-index:9999;pointer-events:none}
+.toast{display:flex;align-items:center;gap:9px;padding:11px 16px;background:var(--bgc);border:1px solid var(--br);border-radius:var(--r);box-shadow:var(--sh);font-size:.85rem;animation:toastIn .3s ease;max-width:300px;pointer-events:all}
+@keyframes toastIn{from{opacity:0;transform:translateX(16px)}to{opacity:1;transform:translateX(0)}}
+.toast.ok{border-color:var(--s)}.toast.err{border-color:var(--acc)}.toast.inf{border-color:var(--p)}
+
+/* ── THINKING ── */
+.think-ind{display:flex;align-items:center;gap:9px;padding:9px 15px;background:rgba(124,111,255,.07);border:1px solid rgba(124,111,255,.18);border-radius:var(--r);font-size:.8rem;color:var(--ts);margin:5px 0}
+.tspin{width:15px;height:15px;border:2px solid rgba(124,111,255,.25);border-top-color:var(--p);border-radius:50%;animation:spin .8s linear infinite;flex-shrink:0}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── DOWNLOAD BTN ── */
+.dl-btn{display:inline-flex;align-items:center;gap:7px;padding:9px 16px;background:linear-gradient(135deg,var(--s),#007a5e);border:none;border-radius:var(--r);color:#fff;cursor:pointer;font-family:var(--fm);font-weight:600;font-size:.85rem;margin-top:9px;transition:var(--tr);text-decoration:none}
+.dl-btn:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,212,170,.35)}
+.dl-btn.pur{background:linear-gradient(135deg,var(--p),var(--ps))}
+
+/* ── ISLAMIC ── */
+.qverse{direction:rtl;font-family:var(--fa);font-size:1.35rem;color:var(--gold);text-align:center;padding:15px;margin:10px 0;background:rgba(255,215,0,.05);border:1px solid rgba(255,215,0,.18);border-radius:var(--r);line-height:2}
+
+/* ── HIDDEN ── */
+.hid{display:none!important}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .sb{position:fixed;left:0;top:0;z-index:100;transform:translateX(-100%);transition:transform var(--tr)}
+  .sb.mob-open{transform:translateX(0)}
+  .mob-menu{display:flex}
+  .mc{width:100%}
+  .wsugs{grid-template-columns:1fr}
+  .wtitle{font-size:2rem}
+  .dual-wrap{flex-direction:column}
+  .szgrid{grid-template-columns:repeat(2,1fr)}
+  .dual-cfg{grid-template-columns:1fr}
+  .msel{max-width:160px;font-size:.75rem}
+  .chat{padding:12px}
+  .inp-area{padding:10px 12px 8px}
+}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+</style>
 </head>
 <body>
-  <div id="app">
-    <!-- Splash Screen -->
-    <div id="splash-screen">
-      <div class="splash-content">
-        <img src="https://i.ibb.co/1t0KstMG/file-0000000090007208b1864eebb1423b3e.png" alt="MI AI Logo" class="splash-logo" />
-        <h1 class="splash-title">MI AI</h1>
-        <p class="splash-arabic">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
-        <p class="splash-sub">Muaaz Intelligence — Muslim Islam Org</p>
-        <div class="splash-loader">
-          <div class="loader-bar"></div>
-        </div>
+
+<!-- SPLASH -->
+<div id="splash">
+  <div class="sp-box">
+    <img src="https://i.ibb.co/1t0KstMG/file-0000000090007208b1864eebb1423b3e.png" class="sp-logo" alt="MI AI"/>
+    <div class="sp-title">MI AI</div>
+    <div class="sp-arabic">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+    <div class="sp-sub">Muaaz Intelligence · Muslim Islam Org</div>
+    <div class="sp-bar"><div class="sp-fill"></div></div>
+  </div>
+</div>
+
+<!-- AUTH -->
+<div id="auth" class="hid">
+  <div class="ac">
+    <div class="acard">
+      <img src="https://i.ibb.co/1t0KstMG/file-0000000090007208b1864eebb1423b3e.png" class="alogo" alt="MI AI"/>
+      <h2>Welcome to MI AI</h2>
+      <div class="asub">بِسْمِ اللَّهِ — In the name of Allah</div>
+      <div class="atabs">
+        <button class="atab on" onclick="swTab('login')">Login</button>
+        <button class="atab" onclick="swTab('reg')">Register</button>
       </div>
-    </div>
-
-    <!-- Auth Screen -->
-    <div id="auth-screen" class="hidden">
-      <div class="auth-container">
-        <div class="auth-card">
-          <img src="https://i.ibb.co/1t0KstMG/file-0000000090007208b1864eebb1423b3e.png" alt="MI AI" class="auth-logo" />
-          <h2>Welcome to MI AI</h2>
-          <p class="auth-subtitle">بِسْمِ اللَّهِ — In the name of Allah</p>
-          <div class="auth-tabs">
-            <button class="auth-tab active" onclick="switchAuthTab('login')">Login</button>
-            <button class="auth-tab" onclick="switchAuthTab('register')">Register</button>
-          </div>
-          <div id="login-form" class="auth-form">
-            <input type="email" id="login-email" placeholder="Email Address" class="auth-input" />
-            <input type="password" id="login-password" placeholder="Password" class="auth-input" />
-            <button class="auth-btn primary" onclick="loginUser()">
-              <span>Login</span>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </button>
-            <button class="auth-btn google" onclick="loginWithGoogle()">
-              <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-              Continue with Google
-            </button>
-          </div>
-          <div id="register-form" class="auth-form hidden">
-            <input type="text" id="reg-name" placeholder="Full Name" class="auth-input" />
-            <input type="email" id="reg-email" placeholder="Email Address" class="auth-input" />
-            <input type="password" id="reg-password" placeholder="Password (min 6 chars)" class="auth-input" />
-            <button class="auth-btn primary" onclick="registerUser()">
-              <span>Create Account</span>
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </button>
-          </div>
-          <p class="auth-footer">Created by <strong>Muaaz Iqbal</strong> · Muslim Islam Org</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Main App -->
-    <div id="main-app" class="hidden">
-      <!-- Sidebar -->
-      <aside id="sidebar" class="sidebar">
-        <div class="sidebar-header">
-          <img src="https://i.ibb.co/1t0KstMG/file-0000000090007208b1864eebb1423b3e.png" alt="MI AI" class="sidebar-logo" />
-          <span class="sidebar-title">MI AI</span>
-          <button class="sidebar-toggle" onclick="toggleSidebar()">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
-          </button>
-        </div>
-
-        <button class="new-chat-btn" onclick="newChat()">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>
-          New Chat
+      <div id="aerr" class="err-msg"></div>
+      <div id="login-f" class="aform">
+        <input id="le" type="email" placeholder="Email" class="ainput"/>
+        <input id="lp" type="password" placeholder="Password" class="ainput"/>
+        <button class="abtn pri" onclick="doLogin()">Login</button>
+        <button class="abtn goo" onclick="doGoogle()">
+          <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+          Continue with Google
         </button>
-
-        <!-- Nav Sections -->
-        <nav class="sidebar-nav">
-          <div class="nav-section-title">AI Modes</div>
-          <button class="nav-item active" onclick="setMode('chat')" data-mode="chat">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            Smart Chat
-          </button>
-          <button class="nav-item" onclick="setMode('pro')" data-mode="pro">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-            Pro Thinking
-          </button>
-          <button class="nav-item" onclick="setMode('code')" data-mode="code">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-            Code Expert
-          </button>
-          <button class="nav-item" onclick="setMode('files')" data-mode="files">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-            File Analysis
-          </button>
-          <button class="nav-item" onclick="setMode('pdf')" data-mode="pdf">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M9 13h6M9 17h6M9 9h1"/></svg>
-            PDF Generator
-          </button>
-          <button class="nav-item" onclick="setMode('image')" data-mode="image">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-            Image Generation
-          </button>
-          <button class="nav-item" onclick="setMode('quran')" data-mode="quran">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-            Quran & Islam
-          </button>
-          <button class="nav-item" onclick="setMode('dual')" data-mode="dual">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-            Dual AI Chat
-          </button>
-          <button class="nav-item" onclick="setMode('voice')" data-mode="voice">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
-            Voice Chat
-          </button>
-          <button class="nav-item" onclick="setMode('web')" data-mode="web">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-            Web Search
-          </button>
-        </nav>
-
-        <!-- Chat History -->
-        <div class="chat-history-section">
-          <div class="nav-section-title">Recent Chats</div>
-          <div id="chat-history-list"></div>
-        </div>
-
-        <!-- User Profile -->
-        <div class="sidebar-footer">
-          <div class="user-profile" id="user-profile-section">
-            <div class="user-avatar" id="user-avatar-display">M</div>
-            <div class="user-info">
-              <span class="user-name" id="user-display-name">User</span>
-              <span class="user-email" id="user-display-email">user@email.com</span>
-            </div>
-            <button class="logout-btn" onclick="logoutUser()" title="Logout">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
-            </button>
-          </div>
-        </div>
-      </aside>
-
-      <!-- Main Content -->
-      <main id="main-content" class="main-content">
-        <!-- Header -->
-        <header class="main-header">
-          <button class="mobile-menu-btn" onclick="toggleSidebar()">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
-          </button>
-          <div class="header-center">
-            <span class="mode-badge" id="current-mode-badge">Smart Chat</span>
-            <select id="model-selector" class="model-selector" onchange="changeModel(this.value)">
-              <option value="llama-3.3-70b-versatile">Llama 3.3 70B — Fast</option>
-              <option value="llama-3.1-8b-instant">Llama 3.1 8B — Instant</option>
-              <option value="mixtral-8x7b-32768">Mixtral 8x7B — Balanced</option>
-              <option value="gemma2-9b-it">Gemma 2 9B — Smart</option>
-              <option value="llama3-groq-70b-8192-tool-use-preview">Llama 70B — Tool Use</option>
-              <option value="deepseek-r1-distill-llama-70b">DeepSeek R1 — Pro Thinking</option>
-              <option value="qwen-qwq-32b">QwQ 32B — Deep Reasoning</option>
-              <option value="meta-llama/llama-4-maverick-17b-128e-instruct">Llama 4 Maverick — Latest</option>
-            </select>
-          </div>
-          <div class="header-actions">
-            <button class="header-btn" onclick="clearChat()" title="Clear Chat">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
-            </button>
-            <button class="header-btn" onclick="exportChat()" title="Export Chat">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            </button>
-          </div>
-        </header>
-
-        <!-- Chat Area -->
-        <div id="chat-area" class="chat-area">
-          <div id="welcome-screen" class="welcome-screen">
-            <img src="https://i.ibb.co/1t0KstMG/file-0000000090007208b1864eebb1423b3e.png" alt="MI AI" class="welcome-logo" />
-            <h1 class="welcome-title">MI AI</h1>
-            <p class="welcome-arabic">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
-            <p class="welcome-sub">Advanced Intelligence by Muaaz Iqbal · Muslim Islam Org</p>
-            <div class="welcome-suggestions">
-              <button class="suggestion-btn" onclick="sendSuggestion('Write a 2000-line Python web scraper with full error handling')">
-                🐍 Write 2000-line Python scraper
-              </button>
-              <button class="suggestion-btn" onclick="sendSuggestion('Generate a beautiful PDF book on Artificial Intelligence with 100 pages')">
-                📚 Generate 100-page AI PDF Book
-              </button>
-              <button class="suggestion-btn" onclick="sendSuggestion('Analyze this code and fix all bugs with explanation')">
-                🔧 Code Analysis & Fix
-              </button>
-              <button class="suggestion-btn" onclick="sendSuggestion('Tell me about Surah Al-Fatiha with full tafseer')">
-                🌙 Quran Tafseer
-              </button>
-              <button class="suggestion-btn" onclick="sendSuggestion('Create a full-stack React + Node.js app with 3000 lines of code')">
-                💻 Full-Stack App (3000 lines)
-              </button>
-              <button class="suggestion-btn" onclick="sendSuggestion('Search the web for latest AI news and summarize')">
-                🔍 Web Search & Summary
-              </button>
-            </div>
-          </div>
-          <div id="messages-container" class="messages-container"></div>
-        </div>
-
-        <!-- File Preview -->
-        <div id="file-preview-bar" class="file-preview-bar hidden">
-          <div id="file-previews"></div>
-          <button onclick="clearFiles()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-          </button>
-        </div>
-
-        <!-- Input Area -->
-        <div class="input-area">
-          <div class="input-tools">
-            <label class="tool-btn" title="Upload Files" for="file-input">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-              <input type="file" id="file-input" multiple accept="*/*" onchange="handleFileUpload(event)" style="display:none" />
-            </label>
-            <button class="tool-btn" onclick="generatePDF()" title="Generate PDF">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M9 13h6M9 17h6"/></svg>
-            </button>
-            <button class="tool-btn" onclick="generateImage()" title="Generate Image">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-            </button>
-            <button class="tool-btn" onclick="generateZip()" title="Generate ZIP">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 8v13H3V8"/><path d="M1 3h22v5H1z"/><path d="M10 12h4"/></svg>
-            </button>
-            <button class="tool-btn" onclick="webSearch()" title="Web Search">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-            </button>
-            <button class="tool-btn" id="voice-btn" onclick="toggleVoice()" title="Voice Input">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>
-            </button>
-          </div>
-          <div class="input-wrapper">
-            <textarea 
-              id="message-input" 
-              placeholder="Ask MI AI anything... (Shift+Enter for new line)" 
-              rows="1"
-              onkeydown="handleKeyDown(event)"
-              oninput="autoResize(this)"
-            ></textarea>
-            <button class="send-btn" id="send-btn" onclick="sendMessage()">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-            </button>
-          </div>
-        </div>
-        <div class="input-footer">
-          <span>MI AI by <strong>Muaaz Iqbal</strong> · Muslim Islam Org · Groq Powered</span>
-        </div>
-      </main>
+      </div>
+      <div id="reg-f" class="aform hid">
+        <input id="rn" type="text" placeholder="Full Name" class="ainput"/>
+        <input id="re" type="email" placeholder="Email" class="ainput"/>
+        <input id="rp" type="password" placeholder="Password (min 6)" class="ainput"/>
+        <button class="abtn pri" onclick="doReg()">Create Account</button>
+      </div>
+      <div class="afoot">Created by <strong>Muaaz Iqbal</strong> · Muslim Islam Org</div>
     </div>
   </div>
+</div>
 
-  <!-- Modal Overlay -->
-  <div id="modal-overlay" class="modal-overlay hidden" onclick="closeModal()"></div>
-  
-  <!-- PDF Generator Modal -->
-  <div id="pdf-modal" class="modal hidden">
-    <div class="modal-header">
-      <h3>📚 PDF Book Generator</h3>
-      <button onclick="closeModal()">✕</button>
+<!-- MAIN APP -->
+<div id="app" class="hid">
+  <!-- Sidebar -->
+  <aside class="sb" id="sb">
+    <div class="sb-hd">
+      <img src="https://i.ibb.co/1t0KstMG/file-0000000090007208b1864eebb1423b3e.png" class="sb-logo" alt="MI AI"/>
+      <span class="sb-name">MI AI</span>
+      <button class="sb-tog" onclick="togSB()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
     </div>
-    <div class="modal-body">
-      <input type="text" id="pdf-topic" placeholder="Book Topic (e.g. Artificial Intelligence)" class="modal-input" />
-      <input type="number" id="pdf-pages" placeholder="Pages (e.g. 100)" class="modal-input" min="10" max="1000" value="50" />
-      <select id="pdf-type" class="modal-input">
-        <option value="educational">Educational Book</option>
-        <option value="novel">Novel / Story</option>
-        <option value="islamic">Islamic Book</option>
-        <option value="technical">Technical Manual</option>
-        <option value="research">Research Paper</option>
-      </select>
-      <textarea id="pdf-details" placeholder="Additional details or outline..." class="modal-input" rows="3"></textarea>
-      <label class="checkbox-label">
-        <input type="checkbox" id="pdf-cover" checked /> Generate Cover Image
-      </label>
-      <label class="checkbox-label">
-        <input type="checkbox" id="pdf-toc" checked /> Table of Contents
-      </label>
+    <button class="new-btn" onclick="newChat()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      New Chat
+    </button>
+    <div class="navs">
+      <div class="nav-sec">AI Modes</div>
+      <button class="nitem on" onclick="setMode('chat')" data-m="chat"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Smart Chat</button>
+      <button class="nitem" onclick="setMode('pro')" data-m="pro"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Pro Thinking</button>
+      <button class="nitem" onclick="setMode('code')" data-m="code"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>Code Expert</button>
+      <button class="nitem" onclick="setMode('files')" data-m="files"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>File Analysis</button>
+      <button class="nitem" onclick="setMode('pdf')" data-m="pdf"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M9 13h6M9 17h6M9 9h1"/></svg>PDF Generator</button>
+      <button class="nitem" onclick="setMode('img')" data-m="img"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>Image Gen</button>
+      <button class="nitem" onclick="setMode('quran')" data-m="quran"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>Quran &amp; Islam</button>
+      <button class="nitem" onclick="setMode('dual')" data-m="dual"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>Dual AI</button>
+      <button class="nitem" onclick="setMode('voice')" data-m="voice"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>Voice Chat</button>
+      <button class="nitem" onclick="setMode('web')" data-m="web"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Web Search</button>
     </div>
-    <div class="modal-footer">
-      <button class="modal-btn secondary" onclick="closeModal()">Cancel</button>
-      <button class="modal-btn primary" onclick="executePDFGeneration()">Generate PDF Book</button>
+    <div class="hist">
+      <div class="nav-sec">Recent Chats</div>
+      <div id="hist-list"></div>
     </div>
-  </div>
-
-  <!-- Image Generator Modal -->
-  <div id="image-modal" class="modal hidden">
-    <div class="modal-header">
-      <h3>🎨 Image Generator</h3>
-      <button onclick="closeModal()">✕</button>
-    </div>
-    <div class="modal-body">
-      <textarea id="image-prompt" placeholder="Describe the image you want to generate..." class="modal-input" rows="3"></textarea>
-      <select id="image-style" class="modal-input">
-        <option value="realistic">Realistic</option>
-        <option value="anime">Anime / Cartoon</option>
-        <option value="artistic">Artistic / Oil Painting</option>
-        <option value="abstract">Abstract</option>
-        <option value="islamic">Islamic Geometric Art</option>
-        <option value="nature">Nature Photography</option>
-      </select>
-      <div class="image-size-grid">
-        <button class="size-btn active" onclick="setImageSize(this, '512x512')">512×512</button>
-        <button class="size-btn" onclick="setImageSize(this, '1024x1024')">1024×1024</button>
-        <button class="size-btn" onclick="setImageSize(this, '1024x576')">1024×576</button>
-        <button class="size-btn" onclick="setImageSize(this, '576x1024')">576×1024</button>
+    <div class="sb-ft">
+      <div class="upr">
+        <div class="uav" id="uav">M</div>
+        <div class="uinfo">
+          <span class="uname" id="uname">User</span>
+          <span class="uemail" id="uemail">user@email.com</span>
+        </div>
+        <button class="lout" onclick="doLogout()" title="Logout">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        </button>
       </div>
     </div>
-    <div class="modal-footer">
-      <button class="modal-btn secondary" onclick="closeModal()">Cancel</button>
-      <button class="modal-btn primary" onclick="executeImageGeneration()">Generate Image</button>
-    </div>
-  </div>
+  </aside>
 
-  <!-- ZIP Generator Modal -->
-  <div id="zip-modal" class="modal hidden">
-    <div class="modal-header">
-      <h3>📦 ZIP File Generator</h3>
-      <button onclick="closeModal()">✕</button>
-    </div>
-    <div class="modal-body">
-      <textarea id="zip-description" placeholder="Describe what files to generate (e.g. 'A complete React todo app with all components, CSS and README')" class="modal-input" rows="4"></textarea>
-      <select id="zip-type" class="modal-input">
-        <option value="web">Web App (HTML/CSS/JS)</option>
-        <option value="react">React Application</option>
-        <option value="python">Python Project</option>
-        <option value="nodejs">Node.js Project</option>
-        <option value="fullstack">Full-Stack Project</option>
-        <option value="custom">Custom Files</option>
-      </select>
-    </div>
-    <div class="modal-footer">
-      <button class="modal-btn secondary" onclick="closeModal()">Cancel</button>
-      <button class="modal-btn primary" onclick="executeZIPGeneration()">Generate ZIP</button>
-    </div>
-  </div>
+  <!-- Main -->
+  <main class="mc">
+    <header class="mhd">
+      <button class="mob-menu" onclick="togSB()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+      <div class="hd-mid">
+        <span class="mode-badge" id="mbadge">Smart Chat</span>
+        <select class="msel" id="msel" onchange="chgModel(this.value)">
+          <option value="llama-3.3-70b-versatile">Llama 3.3 70B — Fast</option>
+          <option value="llama-3.1-8b-instant">Llama 3.1 8B — Instant</option>
+          <option value="llama3-8b-8192">Llama 3 8B — Quick</option>
+          <option value="mixtral-8x7b-32768">Mixtral 8x7B — Balanced</option>
+          <option value="gemma2-9b-it">Gemma 2 9B — Smart</option>
+          <option value="gemma-7b-it">Gemma 7B — Efficient</option>
+          <option value="deepseek-r1-distill-llama-70b">DeepSeek R1 — Pro Thinking</option>
+          <option value="deepseek-r1-distill-qwen-32b">DeepSeek R1 Qwen — Reasoning</option>
+          <option value="qwen-qwq-32b">QwQ 32B — Deep Reason</option>
+          <option value="llama3-groq-70b-8192-tool-use-preview">Llama 70B — Tool Use</option>
+          <option value="llama3-groq-8b-8192-tool-use-preview">Llama 8B — Tool Use</option>
+          <option value="meta-llama/llama-4-maverick-17b-128e-instruct">Llama 4 Maverick — Latest</option>
+          <option value="meta-llama/llama-4-scout-17b-16e-instruct">Llama 4 Scout — Latest</option>
+          <option value="compound-beta">Compound Beta — Multi-tool</option>
+          <option value="compound-beta-mini">Compound Beta Mini — Fast Multi</option>
+        </select>
+      </div>
+      <div class="hd-acts">
+        <button class="hbtn" onclick="clearChat()" title="Clear">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+        </button>
+        <button class="hbtn" onclick="exportChat()" title="Export">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </button>
+      </div>
+    </header>
 
-  <!-- Dual AI Modal -->
-  <div id="dual-modal" class="modal wide-modal hidden">
-    <div class="modal-header">
-      <h3>🤖🤖 Dual AI Debate</h3>
-      <button onclick="closeModal()">✕</button>
-    </div>
-    <div class="modal-body">
-      <textarea id="dual-topic" placeholder="Enter a topic for the two AIs to debate/discuss..." class="modal-input" rows="3"></textarea>
-      <div class="dual-ai-config">
-        <div>
-          <label>AI Alpha Model</label>
-          <select id="dual-model-1" class="modal-input">
-            <option value="deepseek-r1-distill-llama-70b">DeepSeek R1 — Pro Thinking</option>
-            <option value="llama-3.3-70b-versatile">Llama 3.3 70B</option>
-            <option value="qwen-qwq-32b">QwQ 32B — Reasoning</option>
-          </select>
-        </div>
-        <div>
-          <label>AI Beta Model</label>
-          <select id="dual-model-2" class="modal-input">
-            <option value="mixtral-8x7b-32768">Mixtral 8x7B</option>
-            <option value="gemma2-9b-it">Gemma 2 9B</option>
-            <option value="llama-3.1-8b-instant">Llama 3.1 8B</option>
-          </select>
+    <div class="chat" id="chat">
+      <div class="welcome" id="welcome">
+        <img src="https://i.ibb.co/1t0KstMG/file-0000000090007208b1864eebb1423b3e.png" class="wlogo" alt="MI AI"/>
+        <div class="wtitle">MI AI</div>
+        <div class="warabic">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>
+        <div class="wsub">Advanced Intelligence by Muaaz Iqbal · Muslim Islam Org</div>
+        <div class="wsugs">
+          <button class="wsug" onclick="sugSend('Write a complete 2000+ line Python web scraper with async, proxy support, and error handling')">🐍 2000-line Python Scraper</button>
+          <button class="wsug" onclick="sugSend('Generate a beautiful 100-page PDF book on Artificial Intelligence with chapters and cover')">📚 100-page AI PDF Book</button>
+          <button class="wsug" onclick="sugSend('Generate image: Islamic geometric art with arabesque patterns and golden calligraphy')">🎨 Islamic Geometric Art</button>
+          <button class="wsug" onclick="sugSend('Create a complete React + Node.js full stack app with 3000+ lines of code, auth, and database')">💻 Full-Stack App 3000 lines</button>
+          <button class="wsug" onclick="sugSend('Tell me about Surah Al-Fatiha with Arabic text, transliteration, and full tafseer')">🕌 Surah Al-Fatiha Tafseer</button>
+          <button class="wsug" onclick="sugSend('Search and summarize: latest developments in AI and machine learning in 2025')">🔍 Latest AI News Search</button>
         </div>
       </div>
-      <input type="number" id="dual-rounds" placeholder="Rounds (e.g. 3)" class="modal-input" value="3" min="1" max="10" />
+      <div class="msgs" id="msgs"></div>
     </div>
-    <div class="modal-footer">
-      <button class="modal-btn secondary" onclick="closeModal()">Cancel</button>
-      <button class="modal-btn primary" onclick="executeDualAI()">Start Debate</button>
+
+    <div class="fpbar hid" id="fpbar">
+      <div id="fps"></div>
+      <button class="fp-clear" onclick="clearFiles()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <div class="inp-area">
+      <div class="inp-tools">
+        <label class="tbtn" title="Upload Files" for="finput">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          <input type="file" id="finput" multiple accept="*/*" onchange="onFiles(event)" style="display:none"/>
+        </label>
+        <button class="tbtn" onclick="openPDFModal()" title="PDF Book">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M9 13h6M9 17h6"/></svg>
+        </button>
+        <button class="tbtn" onclick="openImgModal()" title="Generate Image">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+        </button>
+        <button class="tbtn" onclick="openZipModal()" title="Generate ZIP">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 8v13H3V8"/><path d="M1 3h22v5H1z"/><path d="M10 12h4"/></svg>
+        </button>
+        <button class="tbtn" onclick="doWebSearch()" title="Web Search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+        <button class="tbtn" id="vbtn" onclick="togVoice()" title="Voice">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg>
+        </button>
+        <button class="tbtn" onclick="openDualModal()" title="Dual AI Debate">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg>
+        </button>
+      </div>
+      <div class="inp-wrap">
+        <textarea id="minput" placeholder="Ask MI AI anything... (Shift+Enter = new line)" rows="1"
+          onkeydown="onKey(event)" oninput="autoSz(this)"></textarea>
+        <button class="sbtn" id="sbtn" onclick="sendMsg()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="inp-ft">MI AI by <strong>Muaaz Iqbal</strong> · Muslim Islam Org · Powered by Groq</div>
+  </main>
+</div>
+
+<!-- Modal Overlay -->
+<div class="mov" id="mov" onclick="closeModals()"></div>
+
+<!-- PDF Modal -->
+<div class="modal" id="pdf-modal">
+  <div class="mhd2"><h3>📚 PDF Book Generator</h3><button onclick="closeModals()">✕</button></div>
+  <div class="mbdy">
+    <input class="minp" id="pdf-topic" placeholder="Book Topic (e.g. Artificial Intelligence)" type="text"/>
+    <input class="minp" id="pdf-pages" placeholder="Pages" type="number" value="50" min="10" max="1000"/>
+    <select class="minp" id="pdf-type">
+      <option value="educational">Educational Book</option>
+      <option value="islamic">Islamic Book</option>
+      <option value="technical">Technical Manual</option>
+      <option value="novel">Novel / Story</option>
+      <option value="research">Research Paper</option>
+    </select>
+    <textarea class="minp" id="pdf-details" placeholder="Extra details or outline..." rows="3"></textarea>
+    <label class="chk-lbl"><input type="checkbox" id="pdf-cover" checked/> Include Cover Page</label>
+    <label class="chk-lbl"><input type="checkbox" id="pdf-toc" checked/> Table of Contents</label>
+  </div>
+  <div class="mft">
+    <button class="mbtn2 sec" onclick="closeModals()">Cancel</button>
+    <button class="mbtn2 pri" onclick="runPDF()">Generate PDF</button>
+  </div>
+</div>
+
+<!-- Image Modal -->
+<div class="modal" id="img-modal">
+  <div class="mhd2"><h3>🎨 Image Generator</h3><button onclick="closeModals()">✕</button></div>
+  <div class="mbdy">
+    <textarea class="minp" id="img-prompt" placeholder="Describe your image in detail..." rows="3"></textarea>
+    <select class="minp" id="img-style">
+      <option value="photorealistic, 8k ultra detailed, professional photography">Realistic</option>
+      <option value="anime style, vibrant colors, detailed manga art">Anime</option>
+      <option value="oil painting, artistic masterpiece, rich textures, museum quality">Oil Painting</option>
+      <option value="Islamic geometric art, arabesque patterns, golden calligraphy, mosque architecture">Islamic Art</option>
+      <option value="abstract art, colorful geometric shapes, modern digital art">Abstract</option>
+      <option value="nature photography, national geographic, golden hour, stunning landscape">Nature</option>
+      <option value="cinematic, movie still, dramatic lighting, epic scene">Cinematic</option>
+      <option value="watercolor painting, soft colors, artistic, beautiful">Watercolor</option>
+    </select>
+    <div class="szgrid">
+      <button class="szbtn on" onclick="setSz(this,'512x512')">512×512</button>
+      <button class="szbtn" onclick="setSz(this,'768x768')">768×768</button>
+      <button class="szbtn" onclick="setSz(this,'1024x1024')">1024×1024</button>
+      <button class="szbtn" onclick="setSz(this,'1024x576')">1024×576</button>
     </div>
   </div>
+  <div class="mft">
+    <button class="mbtn2 sec" onclick="closeModals()">Cancel</button>
+    <button class="mbtn2 pri" onclick="runImg()">Generate Image</button>
+  </div>
+</div>
 
-  <!-- Scripts -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" />
-  <script src="src/utils/firebase.js"></script>
-  <script src="src/utils/groq.js"></script>
-  <script src="src/utils/fileProcessor.js"></script>
-  <script src="src/utils/pdfGenerator.js"></script>
-  <script src="src/utils/imageGenerator.js"></script>
-  <script src="src/utils/zipGenerator.js"></script>
-  <script src="src/utils/voiceHandler.js"></script>
-  <script src="src/utils/webSearch.js"></script>
-  <script src="src/utils/dualAI.js"></script>
-  <script src="src/utils/dataCollector.js"></script>
-  <script src="src/components/chatUI.js"></script>
-  <script src="src/components/codeBlock.js"></script>
-  <script src="src/pages/app.js"></script>
+<!-- ZIP Modal -->
+<div class="modal" id="zip-modal">
+  <div class="mhd2"><h3>📦 ZIP Project Generator</h3><button onclick="closeModals()">✕</button></div>
+  <div class="mbdy">
+    <textarea class="minp" id="zip-desc" placeholder="Describe project (e.g. 'A complete React todo app with auth and dark mode')" rows="4"></textarea>
+    <select class="minp" id="zip-type">
+      <option value="web">Web App (HTML/CSS/JS)</option>
+      <option value="react">React Application</option>
+      <option value="python">Python Project</option>
+      <option value="nodejs">Node.js Backend</option>
+      <option value="fullstack">Full-Stack App</option>
+      <option value="custom">Custom Project</option>
+    </select>
+  </div>
+  <div class="mft">
+    <button class="mbtn2 sec" onclick="closeModals()">Cancel</button>
+    <button class="mbtn2 pri" onclick="runZip()">Generate ZIP</button>
+  </div>
+</div>
+
+<!-- Dual AI Modal -->
+<div class="modal wide" id="dual-modal">
+  <div class="mhd2"><h3>🤖🤖 Dual AI Debate</h3><button onclick="closeModals()">✕</button></div>
+  <div class="mbdy">
+    <textarea class="minp" id="dual-topic" placeholder="Topic for the two AIs to debate..." rows="3"></textarea>
+    <div class="dual-cfg">
+      <div>
+        <label>AI Alpha</label>
+        <select class="minp" id="dual-m1">
+          <option value="deepseek-r1-distill-llama-70b">DeepSeek R1 Pro</option>
+          <option value="llama-3.3-70b-versatile">Llama 3.3 70B</option>
+          <option value="qwen-qwq-32b">QwQ 32B</option>
+          <option value="meta-llama/llama-4-maverick-17b-128e-instruct">Llama 4 Maverick</option>
+        </select>
+      </div>
+      <div>
+        <label>AI Beta</label>
+        <select class="minp" id="dual-m2">
+          <option value="mixtral-8x7b-32768">Mixtral 8x7B</option>
+          <option value="gemma2-9b-it">Gemma 2 9B</option>
+          <option value="llama-3.1-8b-instant">Llama 3.1 8B</option>
+          <option value="meta-llama/llama-4-scout-17b-16e-instruct">Llama 4 Scout</option>
+        </select>
+      </div>
+    </div>
+    <input class="minp" id="dual-rounds" type="number" value="3" min="1" max="8" placeholder="Rounds"/>
+  </div>
+  <div class="mft">
+    <button class="mbtn2 sec" onclick="closeModals()">Cancel</button>
+    <button class="mbtn2 pri" onclick="runDual()">Start Debate</button>
+  </div>
+</div>
+
+<!-- Toast Container -->
+<div class="toast-wrap" id="toasts"></div>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+<!-- Libraries -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/9.1.6/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+<script>
+// ════════════════════════════════════════════════
+// MI AI — Complete Application
+// By Muaaz Iqbal | Muslim Islam Org
+// Powered by Groq API
+// ════════════════════════════════════════════════
+
+// ── FIREBASE CONFIG ──
+const FB_CFG = {
+  apiKey:"AIzaSyBbnU8DkthpYQMHOLLyj6M0cc05qXfjMcw",
+  authDomain:"ramadan-2385b.firebaseapp.com",
+  databaseURL:"https://ramadan-2385b-default-rtdb.firebaseio.com",
+  projectId:"ramadan-2385b",
+  storageBucket:"ramadan-2385b.firebasestorage.app",
+  messagingSenderId:"882828936310",
+  appId:"1:882828936310:web:7f97b921031fe130fe4b57"
+};
+firebase.initializeApp(FB_CFG);
+const auth = firebase.auth();
+const db   = firebase.database();
+
+// ── GROQ CONFIG ──
+const GROQ_KEY = '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';
+const GROQ_URL = 'https://api.groq.com/openai/v1/chat/completions';
+
+// ── STATE ──
+let CU = null, chatId = null, convHist = [], files = [], gen = false, abort = null;
+let mode = 'chat', selModel = 'llama-3.3-70b-versatile', imgSize = '512x512';
+
+// ── SYSTEM PROMPTS ──
+const SYS = {
+  chat:`You are MI AI — Advanced Intelligence created by Muaaz Iqbal (Muslim Islam Org).
+You are brilliant, helpful, comprehensive. Always use markdown. Write COMPLETE answers.
+For code: write FULL working code, never use "..." or truncate. You can write 3000+ lines.
+Start Islamic answers with بِسْمِ اللَّهِ`,
+
+  pro:`You are MI AI Pro Thinking Mode by Muaaz Iqbal (Muslim Islam Org).
+Think deeply step-by-step. Show reasoning. Write extremely detailed answers.
+For code: COMPLETE implementations only — full files, all functions, all edge cases.`,
+
+  code:`You are MI AI Code Expert by Muaaz Iqbal (Muslim Islam Org) — world's best programmer.
+CRITICAL: Always write COMPLETE, WORKING code. NEVER truncate. NEVER add "...".
+Write 2000-5000+ lines when asked. Include full error handling, comments, tests.
+Expert in: Python, JS, TS, React, Node, Go, Rust, C++, Java, PHP, Swift, Flutter, etc.`,
+
+  files:`You are MI AI File Analysis Expert by Muaaz Iqbal (Muslim Islam Org).
+Analyze any file type: PDF, images, ZIP, code, CSV, JSON, spreadsheets, docs, M3U.
+Provide comprehensive analysis: key info, patterns, insights, recommendations.`,
+
+  pdf:`You are MI AI PDF/Book Generator by Muaaz Iqbal (Muslim Islam Org).
+Create complete books — chapters, sections, detailed paragraphs. 500+ pages when asked.
+Professional structure: intro, chapters, conclusion, references. For Islamic books include Quran/hadith.`,
+
+  img:`You are MI AI Image Assistant by Muaaz Iqbal (Muslim Islam Org).
+Enhance image prompts, suggest variations, explain artistic choices.`,
+
+  quran:`You are MI AI Islamic Knowledge by Muaaz Iqbal (Muslim Islam Org).
+بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+Expert in: Quran (all 114 surahs, tafseer), Hadith (Bukhari, Muslim etc), Fiqh (all madhabs),
+Islamic history, duas, prayer times, Arabic. Show Arabic then transliteration then translation.`,
+
+  web:`You are MI AI Web Research by Muaaz Iqbal (Muslim Islam Org).
+Give comprehensive info, cite sources, provide multiple perspectives, practical insights.`,
+
+  voice:`You are MI AI Voice Assistant by Muaaz Iqbal (Muslim Islam Org).
+Keep responses clear, conversational, well-structured. Natural speech-friendly language.`
+};
+
+const MODE_NAMES = {
+  chat:'Smart Chat', pro:'Pro Thinking', code:'Code Expert', files:'File Analysis',
+  pdf:'PDF Generator', img:'Image Gen', quran:'Quran & Islam', dual:'Dual AI',
+  voice:'Voice Chat', web:'Web Search'
+};
+
+// ══════════════════════════════════════
+// FIREBASE AUTH
+// ══════════════════════════════════════
+auth.onAuthStateChanged(u => {
+  if(u){ CU=u; onLogin(u); } else { CU=null; onLogout(); }
+});
+
+function showErr(msg){ const e=document.getElementById('aerr'); e.textContent=msg; e.classList.add('show'); }
+function hideErr(){ const e=document.getElementById('aerr'); e.classList.remove('show'); }
+
+async function doLogin(){
+  hideErr();
+  const em=document.getElementById('le').value.trim();
+  const pw=document.getElementById('lp').value;
+  if(!em||!pw){ showErr('Please fill all fields'); return; }
+  try{
+    await auth.signInWithEmailAndPassword(em,pw);
+  } catch(e){
+    const m={
+      'auth/user-not-found':'No account with this email',
+      'auth/wrong-password':'Wrong password',
+      'auth/invalid-email':'Invalid email',
+      'auth/too-many-requests':'Too many attempts, try later',
+      'auth/invalid-credential':'Invalid email or password'
+    };
+    showErr(m[e.code]||'Login failed: '+e.message);
+  }
+}
+
+async function doReg(){
+  hideErr();
+  const nm=document.getElementById('rn').value.trim();
+  const em=document.getElementById('re').value.trim();
+  const pw=document.getElementById('rp').value;
+  if(!nm||!em||!pw){ showErr('Please fill all fields'); return; }
+  if(pw.length<6){ showErr('Password must be 6+ characters'); return; }
+  try{
+    const c=await auth.createUserWithEmailAndPassword(em,pw);
+    await c.user.updateProfile({displayName:nm});
+    await db.ref('users/'+c.user.uid+'/profile').set({name:nm,email:em,createdAt:Date.now(),plan:'free'});
+  } catch(e){
+    const m={
+      'auth/email-already-in-use':'Email already registered',
+      'auth/weak-password':'Password too weak',
+      'auth/invalid-email':'Invalid email'
+    };
+    showErr(m[e.code]||'Registration failed: '+e.message);
+  }
+}
+
+async function doGoogle(){
+  hideErr();
+  try{
+    const p=new firebase.auth.GoogleAuthProvider();
+    const r=await auth.signInWithPopup(p);
+    const snap=await db.ref('users/'+r.user.uid+'/profile').once('value');
+    if(!snap.exists()) await db.ref('users/'+r.user.uid+'/profile').set({
+      name:r.user.displayName||'User',email:r.user.email,createdAt:Date.now(),plan:'free'
+    });
+  } catch(e){ showErr('Google login failed: '+e.message); }
+}
+
+async function doLogout(){
+  try{ await auth.signOut(); toast('Logged out','inf'); } catch(e){}
+}
+
+function swTab(t){
+  document.querySelectorAll('.atab').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll('.aform').forEach(f=>f.classList.add('hid'));
+  document.querySelector('[onclick="swTab(\''+t+'\')"]').classList.add('on');
+  document.getElementById(t+'-f').classList.remove('hid');
+  hideErr();
+}
+
+function onLogin(u){
+  hideSplash();
+  document.getElementById('auth').classList.add('hid');
+  document.getElementById('app').classList.remove('hid');
+  const n=u.displayName||u.email.split('@')[0];
+  document.getElementById('uname').textContent=n;
+  document.getElementById('uemail').textContent=u.email;
+  document.getElementById('uav').textContent=n.charAt(0).toUpperCase();
+  loadHist();
+  newChat();
+}
+
+function onLogout(){
+  document.getElementById('auth').classList.remove('hid');
+  document.getElementById('app').classList.add('hid');
+  chatId=null; convHist=[];
+}
+
+// ══════════════════════════════════════
+// CHAT HISTORY — FIREBASE
+// ══════════════════════════════════════
+async function saveMsg(role, content){
+  if(!CU||!chatId) return;
+  try{
+    const ref=db.ref('users/'+CU.uid+'/chats/'+chatId);
+    const m=await ref.child('meta').once('value');
+    if(!m.exists()) await ref.child('meta').set({
+      title:content.substring(0,50).replace(/[#*`]/g,'')+'...',
+      createdAt:Date.now(), updatedAt:Date.now(), mode, model:selModel
+    });
+    else await ref.child('meta/updatedAt').set(Date.now());
+    await ref.child('messages').push({role,content:content.substring(0,5000),ts:Date.now()});
+  } catch(e){ console.error('Save msg err:',e); }
+}
+
+async function loadHist(){
+  if(!CU) return;
+  try{
+    const snap=await db.ref('users/'+CU.uid+'/chats').orderByChild('meta/updatedAt').limitToLast(30).once('value');
+    const data=snap.val()||{};
+    const list=document.getElementById('hist-list');
+    list.innerHTML='';
+    const sorted=Object.entries(data).filter(([,c])=>c.meta).sort(([,a],[,b])=>(b.meta.updatedAt||0)-(a.meta.updatedAt||0));
+    sorted.forEach(([id,c])=>{
+      const d=document.createElement('div');
+      d.className='hi'+(id===chatId?' on':'');
+      d.innerHTML='<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span class="hi-txt">'+(c.meta.title||'Chat')+'</span><button class="hi-del" onclick="delChat(\''+id+'\',event)">x</button>';
+      d.onclick=e=>{ if(e.target.classList.contains('hi-del')) return; loadChat(id); };
+      list.appendChild(d);
+    });
+  } catch(e){ console.error('Load hist err:',e); }
+}
+
+async function loadChat(id){
+  if(!CU) return;
+  chatId=id; convHist=[];
+  const snap=await db.ref('users/'+CU.uid+'/chats/'+id+'/messages').once('value');
+  const msgs=snap.val()||{};
+  clearMsgs(); hideWelcome();
+  Object.values(msgs).forEach(m=>addMsg(m.role,m.content,true,null,null,false));
+  loadHist();
+}
+
+async function delChat(id,e){
+  e.stopPropagation();
+  if(!CU) return;
+  await db.ref('users/'+CU.uid+'/chats/'+id).remove();
+  if(id===chatId) newChat();
+  else loadHist();
+  toast('Chat deleted','inf');
+}
+
+function newChat(){
+  chatId='c'+Date.now(); convHist=[];
+  clearMsgs(); showWelcome(); loadHist();
+}
+
+// ══════════════════════════════════════
+// GROQ API — STREAMING
+// ══════════════════════════════════════
+function chgModel(m){ selModel=m; toast('Model: '+m.split('/').pop(),'inf'); }
+
+function setMode(m){
+  mode=m;
+  document.querySelectorAll('.nitem').forEach(i=>i.classList.remove('on'));
+  const el=document.querySelector('[data-m="'+m+'"]');
+  if(el) el.classList.add('on');
+  document.getElementById('mbadge').textContent=MODE_NAMES[m]||m;
+  if(m==='pro'){ selModel='deepseek-r1-distill-llama-70b'; document.getElementById('msel').value=selModel; }
+  else if(m==='code'){ selModel='llama-3.3-70b-versatile'; document.getElementById('msel').value=selModel; }
+  if(m==='dual'){ openDualModal(); return; }
+  toast(MODE_NAMES[m],'inf');
+  newChat();
+}
+
+async function callGroq(userMsg, attachedFiles){
+  if(gen){ stopGen(); return; }
+  gen=true; abort=new AbortController(); updSendBtn(true);
+
+  let full=userMsg;
+  if(attachedFiles&&attachedFiles.length){
+    full+=attachedFiles.map(f=>'\n\n[File: '+f.name+' ('+f.type+')]\n'+f.content.substring(0,4000)).join('');
+  }
+  convHist.push({role:'user',content:full});
+
+  const sys=SYS[mode]||SYS.chat;
+  const msgs=[{role:'system',content:sys},...convHist.slice(-18)];
+
+  const tid=showTyping();
+  try{
+    const res=await fetch(GROQ_URL,{
+      method:'POST',
+      headers:{'Authorization':'Bearer '+GROQ_KEY,'Content-Type':'application/json'},
+      body:JSON.stringify({model:selModel,messages:msgs,max_tokens:8192,temperature:mode==='pro'?.5:.7,stream:true}),
+      signal:abort.signal
+    });
+    if(!res.ok){
+      const err=await res.json().catch(()=>({}));
+      throw new Error(err.error?.message||'HTTP '+res.status);
+    }
+    rmTyping(tid);
+    const resp=await streamResp(res);
+    convHist.push({role:'assistant',content:resp});
+    await saveMsg('user',userMsg);
+    await saveMsg('assistant',resp);
+    return resp;
+  } catch(e){
+    rmTyping(tid);
+    if(e.name==='AbortError') addMsg('assistant','*Generation stopped*',true);
+    else {
+      let m='Error: '+e.message;
+      if(e.message.includes('rate_limit')||e.message.includes('rate limit')) m='Rate limit reached — please wait a moment';
+      if(e.message.includes('model_not_found')||e.message.includes('does not exist')) m='Model not available, switching to Llama 3.3...';
+      addMsg('assistant',m,true);
+    }
+  } finally{ gen=false; abort=null; updSendBtn(false); }
+}
+
+async function streamResp(res){
+  const reader=res.body.getReader(), dec=new TextDecoder();
+  const mid='s'+Date.now();
+  const el=mkStreamEl(mid);
+  let full='', buf='';
+  try{
+    while(true){
+      const {done,value}=await reader.read();
+      if(done) break;
+      buf+=dec.decode(value,{stream:true});
+      const lines=buf.split('\n'); buf=lines.pop()||'';
+      for(const ln of lines){
+        if(!ln.startsWith('data:')) continue;
+        const d=ln.slice(5).trim();
+        if(d==='[DONE]') break;
+        try{
+          const j=JSON.parse(d);
+          const delta=j.choices?.[0]?.delta?.content||'';
+          if(delta){ full+=delta; updStream(mid,full); }
+        } catch(e){}
+      }
+    }
+  } catch(e){ if(e.name!=='AbortError') console.error('Stream err:',e); }
+  finalStream(mid,full);
+  return full;
+}
+
+async function quickCall(msg, model, sys){
+  try{
+    const res=await fetch(GROQ_URL,{
+      method:'POST',
+      headers:{'Authorization':'Bearer '+GROQ_KEY,'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:model||'llama-3.3-70b-versatile',
+        messages:[...(sys?[{role:'system',content:sys}]:[]),{role:'user',content:msg}],
+        max_tokens:8192, temperature:.7
+      })
+    });
+    const d=await res.json();
+    if(!res.ok) throw new Error(d.error?.message||'API error');
+    return d.choices?.[0]?.message?.content||'';
+  } catch(e){ console.error('Quick call err:',e); return ''; }
+}
+
+function stopGen(){ if(abort){ abort.abort(); gen=false; updSendBtn(false); toast('Stopped','inf'); } }
+
+// ══════════════════════════════════════
+// SEND MESSAGE
+// ══════════════════════════════════════
+async function sendMsg(){
+  const inp=document.getElementById('minput');
+  const msg=inp.value.trim();
+  if(!msg&&!files.length) return;
+  if(gen){ stopGen(); return; }
+  inp.value=''; inp.style.height='auto';
+  hideWelcome();
+
+  // Image mode
+  if(mode==='img'&&!files.length){ addMsg('user',msg); await genImgChat(msg); clearFiles(); return; }
+  // Web mode
+  if(mode==='web'||needsWeb(msg)){ addMsg('user',msg); await doSearch(msg); clearFiles(); return; }
+  // Voice mode — record
+  if(mode==='voice'&&!msg&&!files.length){ togVoice(); return; }
+
+  addMsg('user',msg,false,null,files.length?[...files]:null);
+  await callGroq(msg,[...files]);
+  clearFiles();
+}
+
+function sugSend(t){ document.getElementById('minput').value=t; sendMsg(); }
+function onKey(e){ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); sendMsg(); } }
+function autoSz(el){ el.style.height='auto'; el.style.height=Math.min(el.scrollHeight,200)+'px'; }
+function updSendBtn(l){
+  const b=document.getElementById('sbtn');
+  b.innerHTML=l
+    ?'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>'
+    :'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>';
+}
+
+// ══════════════════════════════════════
+// MESSAGE UI
+// ══════════════════════════════════════
+function addMsg(role, content, render=true, customHTML=null, attachedFiles=null, scroll=true){
+  const container=document.getElementById('msgs');
+  const el=document.createElement('div');
+  el.className='msg '+role;
+  const time=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+  const av=role==='user'
+    ?'<div class="mav" style="background:linear-gradient(135deg,var(--p),var(--ps))">'+(CU?.displayName?.charAt(0)||'U')+'</div>'
+    :'<div class="mav"><img src="https://i.ibb.co/1t0KstMG/file-0000000090007208b1864eebb1423b3e.png" alt="MI AI"/></div>';
+
+  let bub='';
+  if(customHTML) bub=customHTML;
+  else if(render&&window.marked) bub=marked.parse(content);
+  else bub=esc(content).replace(/\n/g,'<br>');
+
+  let fatts='';
+  if(attachedFiles&&attachedFiles.length){
+    fatts=attachedFiles.map(f=>{
+      if(f.cat==='image'&&f.durl) return '<div class="fatth"><span>🖼️</span><span>'+f.name+'</span></div><img src="'+f.durl+'" class="chatimg" alt="'+f.name+'"/>';
+      return '<div class="fatth"><span>'+ficon(f.cat)+'</span><span>'+f.name+'</span><span style="color:var(--tm);font-size:.72rem;margin-left:5px">'+fsz(f.size)+'</span></div>';
+    }).join('');
+  }
+
+  const acts=role==='assistant'?`<div class="macts">
+    <button class="mact" onclick="cpyMsg(this)"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button>
+    <button class="mact" onclick="spkMsg(this)"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg> Read</button>
+    <button class="mact" onclick="retryMsg(this)"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.35"/></svg> Retry</button>
+  </div>`:''
+
+  el.innerHTML=av+'<div class="mcont">'+fatts+'<div class="mbub">'+bub+'</div><span class="mtime">'+time+'</span>'+acts+'</div>';
+
+  // Code blocks
+  if(render){
+    setTimeout(()=>{
+      el.querySelectorAll('pre code').forEach(b=>{
+        const pre=b.parentElement;
+        pre.classList.add('cbw');
+        const lg=b.className.match(/language-(\w+)/);
+        const lang=lg?lg[1]:'code';
+        const lb=document.createElement('span'); lb.className='clang'; lb.textContent=lang;
+        const cb=document.createElement('button'); cb.className='ccpy'; cb.textContent='Copy';
+        cb.onclick=()=>{ navigator.clipboard.writeText(b.innerText).then(()=>{ cb.textContent='Copied!'; setTimeout(()=>cb.textContent='Copy',2000); }); };
+        pre.appendChild(lb); pre.appendChild(cb);
+        if(window.hljs) hljs.highlightElement(b);
+      });
+    },30);
+  }
+
+  container.appendChild(el);
+  if(scroll) scrollBot();
+  return el;
+}
+
+function mkStreamEl(id){
+  const c=document.getElementById('msgs');
+  const el=document.createElement('div'); el.className='msg a'; el.id=id;
+  el.innerHTML='<div class="mav"><img src="https://i.ibb.co/1t0KstMG/file-0000000090007208b1864eebb1423b3e.png" alt="MI AI"/></div><div class="mcont"><div class="mbub" id="'+id+'_c"><span style="animation:blink .8s step-end infinite;color:var(--p)">▋</span></div></div>';
+  c.appendChild(el); scrollBot(); return el;
+}
+
+function updStream(id,content){
+  const el=document.getElementById(id+'_c');
+  if(!el) return;
+  if(window.marked) el.innerHTML=marked.parse(content)+'<span style="animation:blink .8s step-end infinite;color:var(--p)">▋</span>';
+  else el.innerHTML=esc(content).replace(/\n/g,'<br>')+'<span style="animation:blink .8s step-end infinite">▋</span>';
+  scrollBot();
+}
+
+function finalStream(id,content){
+  const el=document.getElementById(id+'_c');
+  if(el){
+    if(window.marked) el.innerHTML=marked.parse(content);
+    else el.innerHTML=esc(content).replace(/\n/g,'<br>');
+  }
+  const msgEl=document.getElementById(id);
+  if(msgEl){
+    msgEl.className='msg assistant';
+    msgEl.querySelectorAll('pre code').forEach(b=>{
+      const pre=b.parentElement; pre.classList.add('cbw');
+      const lg=b.className.match(/language-(\w+)/); const lang=lg?lg[1]:'code';
+      const lb=document.createElement('span'); lb.className='clang'; lb.textContent=lang;
+      const cb=document.createElement('button'); cb.className='ccpy'; cb.textContent='Copy';
+      cb.onclick=()=>{ navigator.clipboard.writeText(b.innerText).then(()=>{ cb.textContent='Copied!'; setTimeout(()=>cb.textContent='Copy',2000); }); };
+      pre.appendChild(lb); pre.appendChild(cb);
+      if(window.hljs) hljs.highlightElement(b);
+    });
+    const mc=msgEl.querySelector('.mcont');
+    const time=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+    mc.insertAdjacentHTML('beforeend',`<span class="mtime">${time}</span><div class="macts">
+      <button class="mact" onclick="cpyMsg(this)"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> Copy</button>
+      <button class="mact" onclick="spkMsg(this)"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg> Read</button>
+      <button class="mact" onclick="retryMsg(this)"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.35"/></svg> Retry</button>
+    </div>`);
+  }
+  scrollBot();
+}
+
+function showTyping(){
+  const id='ty'+Date.now(), c=document.getElementById('msgs');
+  const el=document.createElement('div'); el.className='msg assistant'; el.id=id;
+  el.innerHTML='<div class="mav"><img src="https://i.ibb.co/1t0KstMG/file-0000000090007208b1864eebb1423b3e.png" alt="MI AI"/></div><div class="mcont"><div class="typing"><div class="td"></div><div class="td"></div><div class="td"></div></div></div>';
+  c.appendChild(el); scrollBot(); return id;
+}
+function rmTyping(id){ const e=document.getElementById(id); if(e) e.remove(); }
+
+function showThink(txt){
+  const id='th'+Date.now(), c=document.getElementById('msgs');
+  const el=document.createElement('div'); el.className='msg assistant'; el.id=id;
+  el.innerHTML='<div class="mav"><img src="https://i.ibb.co/1t0KstMG/file-0000000090007208b1864eebb1423b3e.png" alt="MI AI"/></div><div class="mcont"><div class="think-ind"><div class="tspin"></div><span>'+txt+'</span></div></div>';
+  c.appendChild(el); scrollBot(); return id;
+}
+function rmThink(id){ const e=document.getElementById(id); if(e) e.remove(); }
+
+function showProg(txt){
+  const id='pr'+Date.now(), c=document.getElementById('msgs');
+  const el=document.createElement('div'); el.className='msg assistant'; el.id=id;
+  el.innerHTML='<div class="mav"><img src="https://i.ibb.co/1t0KstMG/file-0000000090007208b1864eebb1423b3e.png" alt="MI AI"/></div><div class="mcont"><div class="prog-box"><div class="prog-lbl" id="'+id+'_l">'+txt+'</div><div class="prog-bar"><div class="prog-fill" id="'+id+'_b" style="width:0%"></div></div></div></div>';
+  c.appendChild(el); scrollBot(); return id;
+}
+function updProg(id,txt,pct){ const l=document.getElementById(id+'_l'),b=document.getElementById(id+'_b'); if(l) l.textContent=txt; if(b) b.style.width=pct+'%'; scrollBot(); }
+function rmProg(id){ const e=document.getElementById(id); if(e) e.remove(); }
+
+function cpyMsg(btn){ const b=btn.closest('.mcont').querySelector('.mbub'); navigator.clipboard.writeText(b.innerText||'').then(()=>toast('Copied!','ok')); }
+function spkMsg(btn){ const b=btn.closest('.mcont').querySelector('.mbub'); spk(b.innerText||''); toast('Reading...','inf'); }
+async function retryMsg(btn){
+  const um=document.querySelectorAll('.msg.user'); if(!um.length) return;
+  const txt=um[um.length-1].querySelector('.mbub')?.innerText||'';
+  const ams=document.querySelectorAll('.msg.assistant'); if(ams.length) ams[ams.length-1].remove();
+  if(convHist.length) convHist.pop();
+  toast('Retrying...','inf');
+  await callGroq(txt,[]);
+}
+
+// ══════════════════════════════════════
+// FILE HANDLING
+// ══════════════════════════════════════
+async function onFiles(e){
+  const fs2=Array.from(e.target.files); e.target.value='';
+  for(const f of fs2){
+    try{ const p=await procFile(f); files.push(p); addFP(p); } catch(e){ toast('Failed: '+f.name,'err'); }
+  }
+  if(files.length){ document.getElementById('fpbar').classList.remove('hid'); toast(files.length+' file(s) ready','ok'); }
+}
+
+async function procFile(f){
+  const ext=f.name.split('.').pop().toLowerCase();
+  const r={name:f.name,type:f.type||'',size:f.size,ext,content:'',cat:'',durl:null};
+  if(['jpg','jpeg','png','gif','webp','bmp','svg'].includes(ext)){
+    r.durl=await rdDataURL(f); r.content='[Image: '+f.name+']'; r.cat='image';
+  } else if(['js','ts','py','html','css','php','java','cpp','c','cs','go','rs','rb','swift','kt','dart','sql','sh','bash','lua','scala','vue','jsx','tsx','r'].includes(ext)){
+    r.content=await rdText(f); r.cat='code';
+  } else if(['txt','md','log','yaml','yml','toml','ini','cfg','conf'].includes(ext)){
+    r.content=await rdText(f); r.cat='text';
+  } else if(['json','jsonl'].includes(ext)){
+    const t=await rdText(f); try{ JSON.parse(t); } catch(e){} r.content=t; r.cat='json';
+  } else if(['csv','tsv'].includes(ext)){
+    r.content=await rdText(f); r.cat='csv';
+  } else if(ext==='zip'){
+    r.content=await rdZip(f); r.cat='zip';
+  } else if(ext==='pdf'){
+    r.content='[PDF: '+f.name+' — '+fsz(f.size)+'. Please analyze this PDF document.]'; r.cat='pdf';
+  } else if(ext==='m3u'||ext==='m3u8'){
+    r.content=await rdText(f); r.cat='m3u';
+  } else {
+    try{ r.content=await rdText(f); r.cat='text'; } catch(e){ r.content='[Binary: '+f.name+']'; r.cat='binary'; }
+  }
+  return r;
+}
+
+async function rdZip(f){
+  if(!window.JSZip) return '[ZIP: '+f.name+']';
+  const zip=await JSZip.loadAsync(f);
+  let out='ZIP: '+f.name+'\nContents:\n';
+  const flist=[]; zip.forEach((p,e)=>flist.push({p,e}));
+  flist.forEach(({p,e})=>{ out+=(e.dir?'[DIR] ':'[FILE] ')+p+'\n'; });
+  const txts=['js','ts','py','html','css','txt','md','json','yaml','yml','sh','php','java','cpp','c','go','rs','sql'];
+  let rc=0;
+  for(const {p,e} of flist){
+    if(e.dir||rc>=8) continue;
+    const ext2=p.split('.').pop().toLowerCase();
+    if(!txts.includes(ext2)) continue;
+    try{ const t=await e.async('string'); out+='\n--- '+p+' ---\n'+t.substring(0,2000)+'\n'; rc++; } catch(e2){}
+  }
+  return out;
+}
+
+const rdText=f=>new Promise((res,rej)=>{ const r=new FileReader(); r.onload=e=>res(e.target.result); r.onerror=rej; r.readAsText(f,'UTF-8'); });
+const rdDataURL=f=>new Promise((res,rej)=>{ const r=new FileReader(); r.onload=e=>res(e.target.result); r.onerror=rej; r.readAsDataURL(f); });
+
+function addFP(f){
+  const c=document.getElementById('fps');
+  const d=document.createElement('div'); d.className='fpi'; d.id='fp_'+f.name.replace(/\W/g,'_');
+  d.innerHTML=ficon(f.cat)+' <span>'+f.name.substring(0,20)+'</span> <button onclick="rmFile(\''+f.name+'\')">x</button>';
+  c.appendChild(d);
+}
+function rmFile(n){ files=files.filter(f=>f.name!==n); const e=document.getElementById('fp_'+n.replace(/\W/g,'_')); if(e) e.remove(); if(!files.length) document.getElementById('fpbar').classList.add('hid'); }
+function clearFiles(){ files=[]; document.getElementById('fps').innerHTML=''; document.getElementById('fpbar').classList.add('hid'); }
+
+function ficon(cat){ return {image:'🖼️',pdf:'📄',zip:'📦',code:'💻',text:'📝',json:'🔧',csv:'📊',m3u:'📺',binary:'💾',audio:'🎵',video:'🎬'}[cat]||'📁'; }
+function fsz(b){ if(b<1024) return b+'B'; if(b<1048576) return (b/1024).toFixed(1)+'KB'; return (b/1048576).toFixed(1)+'MB'; }
+
+// ══════════════════════════════════════
+// PDF GENERATOR
+// ══════════════════════════════════════
+function openPDFModal(){ openModal('pdf-modal'); }
+
+async function runPDF(){
+  const topic=document.getElementById('pdf-topic').value.trim();
+  const pages=parseInt(document.getElementById('pdf-pages').value)||50;
+  const type=document.getElementById('pdf-type').value;
+  const details=document.getElementById('pdf-details').value.trim();
+  const cover=document.getElementById('pdf-cover').checked;
+  const toc=document.getElementById('pdf-toc').checked;
+  if(!topic){ toast('Enter a topic','err'); return; }
+  closeModals(); hideWelcome();
+
+  const pid=showProg('📚 Generating "'+topic+'" book...');
+  try{
+    updProg(pid,'Generating outline...',8);
+    const outline=await quickCall(
+      'Create detailed book outline for: "'+topic+'". Include title and 10-15 chapters with sub-sections.',
+      'llama-3.3-70b-versatile', SYS.pdf
+    );
+
+    const chaps=Math.min(Math.max(5,Math.floor(pages/10)),12);
+    const content=[];
+    for(let i=1;i<=chaps;i++){
+      updProg(pid,'Writing Chapter '+i+'/'+chaps+'...',8+(i/chaps)*65);
+      const c=await quickCall(
+        'Write Chapter '+i+' for a '+type+' book about "'+topic+'". Outline: '+outline.substring(0,400)+'...\n'+details+'\nWrite detailed content, at least 800 words. '+(type==='islamic'?'Include Quranic verses and hadith. Start with بِسْمِ اللَّهِ':''),
+        'llama-3.3-70b-versatile', SYS.pdf
+      );
+      content.push({i,text:c});
+    }
+
+    updProg(pid,'Building PDF...',80);
+    await buildPDF({topic,type,outline,content,cover,toc,pages});
+    rmProg(pid);
+    addMsg('assistant','✅ **PDF Book Ready!**\n\n**Title:** '+topic+'\n**Chapters:** '+chaps+'\n**Type:** '+type+'\n\nDownloaded to your device!',true);
+    toast('PDF downloaded!','ok');
+  } catch(e){ rmProg(pid); addMsg('assistant','PDF Error: '+e.message,true); }
+}
+
+async function buildPDF({topic,type,outline,content,cover,toc,pages}){
+  const {jsPDF}=window.jspdf;
+  const doc=new jsPDF({orientation:'portrait',unit:'mm',format:'a4'});
+  const W=doc.internal.pageSize.getWidth(), H=doc.internal.pageSize.getHeight();
+  const M=20, CW=W-M*2;
+
+  function bg(){ doc.setFillColor(8,8,15); doc.rect(0,0,W,H,'F'); }
+  function hdr(lbl){
+    doc.setFillColor(14,14,24); doc.rect(0,0,W,13,'F');
+    doc.setFont('helvetica','normal'); doc.setFontSize(7.5); doc.setTextColor(124,111,255);
+    doc.text('MI AI',M,9);
+    doc.setTextColor(90,90,130);
+    doc.text(topic.substring(0,45),W/2,9,{align:'center'});
+    doc.text(lbl,W-M,9,{align:'right'});
+  }
+  function ftr(pg){
+    doc.setFillColor(14,14,24); doc.rect(0,H-11,W,11,'F');
+    doc.setFont('helvetica','normal'); doc.setFontSize(7); doc.setTextColor(70,70,110);
+    doc.text('MI AI by Muaaz Iqbal | Muslim Islam Org',M,H-5);
+    doc.setTextColor(124,111,255); doc.text(String(pg),W-M,H-5,{align:'right'});
+  }
+
+  let pg=1;
+  if(cover){
+    bg();
+    doc.setFillColor(124,111,255); doc.rect(0,0,W,6,'F');
+    doc.setFillColor(0,212,170); doc.rect(0,H-6,W,6,'F');
+    doc.setFillColor(124,111,255); doc.rect(0,0,4,H,'F');
+    doc.setFont('helvetica','bold'); doc.setFontSize(11); doc.setTextColor(124,111,255);
+    doc.text('MI AI',W/2,28,{align:'center'});
+    const tc={educational:[0,212,170],islamic:[255,215,0],technical:[124,111,255],novel:[255,107,107],research:[100,180,255]}[type]||[200,200,200];
+    doc.setFillColor(...tc); doc.roundedRect(W/2-28,36,56,9,2,2,'F');
+    doc.setFontSize(7.5); doc.setTextColor(8,8,15); doc.text(type.toUpperCase(),W/2,41.8,{align:'center'});
+    doc.setFont('helvetica','bold'); doc.setFontSize(22); doc.setTextColor(240,240,255);
+    const tl=doc.splitTextToSize(topic.toUpperCase(),CW-10);
+    let ty=H/2-20; tl.forEach(l=>{ doc.text(l,W/2,ty,{align:'center'}); ty+=11; });
+    if(type==='islamic'){ doc.setFont('helvetica','normal'); doc.setFontSize(13); doc.setTextColor(255,215,0); doc.text('بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ',W/2,ty+12,{align:'center'}); }
+    doc.setFontSize(8.5); doc.setTextColor(80,80,120);
+    doc.text(content.length+' Chapters | '+pages+' Pages',W/2,H-30,{align:'center'});
+    doc.setFillColor(22,22,40); doc.rect(M,H-22,CW,14,'F');
+    doc.setFont('helvetica','bold'); doc.setFontSize(9); doc.setTextColor(124,111,255);
+    doc.text('MI AI',M+7,H-14);
+    doc.setFont('helvetica','normal'); doc.setFontSize(8); doc.setTextColor(140,140,180);
+    doc.text('Muaaz Iqbal | Muslim Islam Org',M+7,H-9);
+    doc.setTextColor(70,70,110); doc.text(new Date().toLocaleDateString('en-US',{year:'numeric',month:'long'}),W-M,H-14,{align:'right'});
+    doc.addPage(); pg++;
+  }
+
+  if(toc){
+    bg(); hdr('Table of Contents');
+    doc.setFont('helvetica','bold'); doc.setFontSize(18); doc.setTextColor(240,240,255);
+    doc.text('Table of Contents',W/2,32,{align:'center'});
+    doc.setDrawColor(124,111,255); doc.setLineWidth(.3); doc.line(M,37,W-M,37);
+    let y=50;
+    content.forEach((ch,i)=>{
+      if(y>H-25){ ftr(pg); doc.addPage(); pg++; bg(); hdr('TOC'); y=30; }
+      const ttl=ch.text.split('\n').slice(0,3).map(l=>l.replace(/^#+\s*/,'').replace(/\*\*/g,'').trim()).find(l=>l.length>8&&l.length<80)||'Chapter '+(i+1);
+      doc.setFont('helvetica','bold'); doc.setFontSize(10); doc.setTextColor(124,111,255);
+      doc.text('Ch. '+(i+1),M,y);
+      doc.setFont('helvetica','normal'); doc.setTextColor(200,200,220);
+      const tls=doc.splitTextToSize(ttl,CW-45);
+      doc.text(tls[0],M+28,y);
+      doc.setTextColor(80,80,120); doc.text(String(pg+i+1),W-M,y,{align:'right'});
+      y+=11;
+    });
+    ftr(pg); doc.addPage(); pg++;
+  }
+
+  content.forEach((ch,ci)=>{
+    bg();
+    doc.setFillColor(124,111,255); doc.rect(0,0,5,H,'F');
+    doc.setFont('helvetica','bold'); doc.setFontSize(42); doc.setTextColor(20,20,38);
+    doc.text(String(ci+1).padStart(2,'0'),W-M,H/2,{align:'right'});
+    doc.setFontSize(9); doc.setTextColor(124,111,255);
+    doc.text('CHAPTER '+(ci+1),M+12,H/2-18);
+    const ttl=ch.text.split('\n').slice(0,3).map(l=>l.replace(/^#+\s*/,'').replace(/\*\*/g,'').trim()).find(l=>l.length>8&&l.length<80)||'Chapter '+(ci+1);
+    doc.setFontSize(18); doc.setTextColor(240,240,255);
+    const ctl=doc.splitTextToSize(ttl,CW-30);
+    ctl.forEach((l,li)=>doc.text(l,M+12,H/2+(li*10)));
+    doc.setFillColor(0,212,170); doc.rect(0,H-4,W,4,'F');
+    ftr(pg); doc.addPage(); pg++;
+
+    bg(); hdr('Chapter '+(ci+1));
+    const clean=ch.text.replace(/```[\s\S]*?```/g,'[Code]').replace(/`([^`]+)`/g,'$1').replace(/\[([^\]]+)\]\([^)]+\)/g,'$1').replace(/!\[[^\]]*\]\([^)]+\)/g,'').replace(/\*\*([^*]+)\*\*/g,'$1').replace(/\*([^*]+)\*/g,'$1').replace(/^#{1,6}\s/gm,'').replace(/^[-*+]\s/gm,'• ').replace(/\n{3,}/g,'\n\n').trim();
+    const lines=doc.splitTextToSize(clean,CW);
+    let y=27;
+    lines.forEach(line=>{
+      if(y>H-18){ ftr(pg); doc.addPage(); pg++; bg(); hdr('Chapter '+(ci+1)); y=27; }
+      if(line.match(/^(CHAPTER|SECTION|PART)\s/i)||line.match(/^[A-Z][A-Z\s]{8,}$/)){
+        doc.setFont('helvetica','bold'); doc.setFontSize(11); doc.setTextColor(124,111,255);
+        if(y>28) y+=3;
+        doc.text(line,M,y); y+=7;
+        doc.setFont('helvetica','normal'); doc.setFontSize(9.5); doc.setTextColor(215,215,235);
+      } else if(!line.trim()){
+        y+=3;
+      } else {
+        doc.setFont('helvetica','normal'); doc.setFontSize(9.5); doc.setTextColor(215,215,235);
+        doc.text(line,M,y); y+=6.2;
+      }
+    });
+    ftr(pg); if(ci<content.length-1){ doc.addPage(); pg++; }
+  });
+
+  // Back cover
+  doc.addPage(); bg();
+  doc.setFillColor(124,111,255); doc.rect(0,0,W,6,'F');
+  doc.setFillColor(0,212,170); doc.rect(0,H-6,W,6,'F');
+  doc.setFont('helvetica','bold'); doc.setFontSize(26); doc.setTextColor(30,30,55);
+  doc.text('MI AI',W/2,H/2-12,{align:'center'});
+  doc.setFont('helvetica','normal'); doc.setFontSize(9); doc.setTextColor(70,70,110);
+  doc.text('Advanced Intelligence by Muaaz Iqbal',W/2,H/2,{align:'center'});
+  doc.text('Muslim Islam Org | Powered by Groq',W/2,H/2+9,{align:'center'});
+
+  const fn='MI-AI_'+topic.replace(/\s+/g,'_').substring(0,28)+'_'+Date.now()+'.pdf';
+  doc.save(fn);
+}
+
+// ══════════════════════════════════════
+// IMAGE GENERATOR — POLLINATIONS
+// ══════════════════════════════════════
+function openImgModal(){ openModal('img-modal'); }
+function setSz(btn,sz){ document.querySelectorAll('.szbtn').forEach(b=>b.classList.remove('on')); btn.classList.add('on'); imgSize=sz; }
+
+async function runImg(){
+  const prompt=document.getElementById('img-prompt').value.trim();
+  const style=document.getElementById('img-style').value;
+  if(!prompt){ toast('Describe the image','err'); return; }
+  closeModals(); hideWelcome();
+  await genImgChat(prompt+', '+style);
+}
+
+async function genImgChat(prompt){
+  const tid=showThink('🎨 Generating image...');
+  const [W,H]=imgSize.split('x').map(Number);
+  const seed=Math.floor(Math.random()*999999);
+  const enc=encodeURIComponent(prompt);
+
+  // Use multiple Pollinations endpoints for reliability
+  const urls=[
+    'https://image.pollinations.ai/prompt/'+enc+'?width='+W+'&height='+H+'&seed='+seed+'&nologo=true&enhance=true',
+    'https://image.pollinations.ai/prompt/'+enc+'?width='+W+'&height='+H+'&seed='+(seed+1)+'&nologo=true'
+  ];
+  const url=urls[0];
+
+  rmThink(tid);
+  const html=`
+    <div>
+      <p style="margin-bottom:8px">🎨 <strong>Generated Image</strong></p>
+      <p style="font-size:.78rem;color:var(--ts);margin-bottom:10px">Prompt: ${prompt.substring(0,80)}...</p>
+      <img src="${url}" alt="Generated image" style="max-width:100%;border-radius:12px;display:block;background:var(--bgi);min-height:200px"
+        onerror="this.src='${urls[1]}'"
+        onload="this.style.minHeight='auto'"
+        loading="lazy"/>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+        <a href="${url}" download="MI-AI-img-${Date.now()}.png" class="dl-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download
+        </a>
+        <button class="dl-btn pur" onclick="genImgChat('${enc.substring(0,60)}')">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.35"/></svg>
+          Regenerate
+        </button>
+        <button class="dl-btn" style="background:linear-gradient(135deg,#FF6B6B,#cc4444)" onclick="gen4('${enc.substring(0,60)}',${W},${H})">
+          4 Variations
+        </button>
+      </div>
+    </div>`;
+  addMsg('assistant','',true,html);
+  toast('Image generated!','ok');
+}
+
+async function gen4(enc,W,H){
+  const tid=showThink('🎨 Generating 4 variations...');
+  const imgs=[];
+  for(let i=0;i<4;i++) imgs.push('https://image.pollinations.ai/prompt/'+enc+'?width='+Math.floor(W/2)+'&height='+Math.floor(H/2)+'&seed='+Math.floor(Math.random()*999999)+'&nologo=true');
+  rmThink(tid);
+  const html='<div><p style="margin-bottom:10px">🎨 <strong>4 Variations</strong></p><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">'+imgs.map((u,i)=>`<div><img src="${u}" style="width:100%;border-radius:8px;display:block;background:var(--bgi);min-height:120px" onerror="this.style.display='none'" loading="lazy"/><a href="${u}" download="var${i+1}-${Date.now()}.png" style="display:block;text-align:center;font-size:.75rem;color:var(--s);margin-top:4px">Download V${i+1}</a></div>`).join('')+'</div></div>';
+  addMsg('assistant','',true,html);
+}
+
+// ══════════════════════════════════════
+// ZIP GENERATOR
+// ══════════════════════════════════════
+function openZipModal(){ openModal('zip-modal'); }
+
+async function runZip(){
+  const desc=document.getElementById('zip-desc').value.trim();
+  const type=document.getElementById('zip-type').value;
+  if(!desc){ toast('Describe the project','err'); return; }
+  closeModals(); hideWelcome();
+  const pid=showProg('📦 Generating project...');
+  try{
+    updProg(pid,'AI writing code...',15);
+    const typeHints={
+      web:'Complete web app: index.html (2000+ lines with full JS), styles.css (1000+ lines), README.md',
+      react:'React app: src/App.jsx (2000+ lines), src/components/Header.jsx, src/components/Main.jsx, src/styles/App.css, package.json, README.md',
+      python:'Python project: main.py (2000+ lines), utils.py (1000+ lines), requirements.txt, README.md',
+      nodejs:'Node.js: src/server.js (2000+ lines), src/routes/api.js, src/middleware/auth.js, package.json, .env.example, README.md',
+      fullstack:'Full-stack: frontend/index.html (1500+ lines), frontend/app.js (1500+ lines), backend/server.js (2000+ lines), package.json, README.md',
+      custom:'Generate the requested files'
+    };
+
+    const aiResp=await quickCall(
+      `Create a complete ${type} project for: "${desc}"
+
+${typeHints[type]}
+
+RULES:
+- Write COMPLETE working code, minimum 2000 total lines
+- No shortcuts, no "..." placeholders
+- Include comprehensive comments
+- Production-ready code
+
+Return ONLY valid JSON (no markdown), exactly this format:
+{"projectName":"folder-name","files":[{"path":"relative/path/file.ext","content":"complete file content"}]}`,
+      'llama-3.3-70b-versatile', SYS.code
+    );
+
+    updProg(pid,'Creating ZIP archive...',75);
+    let proj;
+    try{
+      const m=aiResp.match(/\{[\s\S]*\}/);
+      if(m) proj=JSON.parse(m[0]);
+    } catch(e){}
+
+    if(!proj||!proj.files?.length){
+      proj={projectName:'mi-ai-project',files:[{path:'main.js',content:aiResp}]};
+    }
+
+    const zip=new JSZip();
+    const folder=zip.folder(proj.projectName||'mi-ai-project');
+    proj.files.forEach(f=>{
+      const parts=f.path.split('/');
+      if(parts.length>1){
+        let cur=folder;
+        for(let i=0;i<parts.length-1;i++) cur=cur.folder(parts[i]);
+        cur.file(parts[parts.length-1],f.content||'');
+      } else { folder.file(f.path,f.content||''); }
+    });
+    folder.file('MI-AI-INFO.md',`# Generated by MI AI\nBy: Muaaz Iqbal | Muslim Islam Org\nDate: ${new Date().toLocaleString()}\nProject: ${desc}\n\nبِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ`);
+
+    updProg(pid,'Compressing...',92);
+    const blob=await zip.generateAsync({type:'blob',compression:'DEFLATE',compressionOptions:{level:9}});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a'); a.href=url; a.download=(proj.projectName||'mi-ai-project')+'.zip'; a.click();
+    URL.revokeObjectURL(url);
+    rmProg(pid);
+    addMsg('assistant','✅ **ZIP Downloaded!**\n\n**Project:** '+proj.projectName+'\n**Files:** '+proj.files.length+'\n\nExtract and use immediately!',true);
+    toast('ZIP downloaded!','ok');
+  } catch(e){ rmProg(pid); addMsg('assistant','ZIP Error: '+e.message,true); }
+}
+
+// ══════════════════════════════════════
+// WEB SEARCH
+// ══════════════════════════════════════
+function doWebSearch(){
+  const q=document.getElementById('minput').value.trim();
+  if(q){ addMsg('user',q); doSearch(q); document.getElementById('minput').value=''; }
+  else toast('Enter a search query','err');
+}
+
+async function doSearch(q){
+  hideWelcome();
+  const tid=showThink('🔍 Searching: "'+q.substring(0,50)+'"...');
+  const links=`<div style="display:flex;gap:7px;flex-wrap:wrap;margin:10px 0">
+    <a href="https://www.google.com/search?q=${encodeURIComponent(q)}" target="_blank" class="dl-btn" style="font-size:.78rem;padding:6px 12px;background:linear-gradient(135deg,#4285F4,#34A853)">🔍 Google</a>
+    <a href="https://search.brave.com/search?q=${encodeURIComponent(q)}" target="_blank" class="dl-btn" style="font-size:.78rem;padding:6px 12px">🦁 Brave</a>
+    <a href="https://duckduckgo.com/?q=${encodeURIComponent(q)}" target="_blank" class="dl-btn" style="font-size:.78rem;padding:6px 12px;background:linear-gradient(135deg,#DE5833,#C44B24)">🦆 DuckDuckGo</a>
+  </div>`;
+  const resp=await quickCall(
+    'User searched for: "'+q+'"\nProvide comprehensive information: key facts, context, latest known info, multiple perspectives, sources, recommendations. Format with markdown headers.',
+    'llama-3.3-70b-versatile', SYS.web
+  );
+  rmThink(tid);
+  addMsg('assistant','',true,'<p>🔍 <strong>Search: "'+q.substring(0,60)+'"</strong></p>'+links);
+  addMsg('assistant',resp,true);
+}
+
+function needsWeb(m){
+  return /latest|recent|today|news|current|2025|2026|search|trending|price of|who is|cricket|match|score|weather/i.test(m);
+}
+
+// ══════════════════════════════════════
+// VOICE
+// ══════════════════════════════════════
+let voiceOn=false, voiceRec=null;
+function togVoice(){ voiceOn?stopVoice():startVoice(); }
+function startVoice(){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){ toast('Voice not supported','err'); return; }
+  voiceRec=new SR(); voiceRec.lang='en-US'; voiceRec.interimResults=true;
+  voiceRec.onstart=()=>{ voiceOn=true; document.getElementById('vbtn').classList.add('on'); showVoiceInd(); toast('Listening...','inf'); };
+  voiceRec.onresult=e=>{ let t=''; for(let i=e.resultIndex;i<e.results.length;i++) t+=e.results[i][0].transcript; document.getElementById('minput').value=t; autoSz(document.getElementById('minput')); };
+  voiceRec.onend=()=>{ voiceOn=false; document.getElementById('vbtn').classList.remove('on'); rmVoiceInd(); const v=document.getElementById('minput').value.trim(); if(v) setTimeout(sendMsg,400); };
+  voiceRec.onerror=e=>{ voiceOn=false; document.getElementById('vbtn').classList.remove('on'); rmVoiceInd(); if(e.error!=='aborted') toast('Voice: '+e.error,'err'); };
+  voiceRec.start();
+}
+function stopVoice(){ if(voiceRec) voiceRec.stop(); voiceOn=false; document.getElementById('vbtn').classList.remove('on'); rmVoiceInd(); }
+function showVoiceInd(){
+  if(document.getElementById('vind')) return;
+  const el=document.createElement('div'); el.id='vind'; el.className='voice-ind';
+  el.innerHTML='<div class="vpulse"></div><span>Listening... speak now</span><button onclick="stopVoice()" style="background:none;border:none;color:var(--acc);cursor:pointer;margin-left:8px;font-size:.8rem">Stop</button>';
+  document.querySelector('.inp-area').insertBefore(el,document.querySelector('.inp-wrap'));
+}
+function rmVoiceInd(){ const e=document.getElementById('vind'); if(e) e.remove(); }
+
+let synthOn=false;
+function spk(text){
+  if(!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(text.replace(/[#*`_\[\]()]/g,'').substring(0,2000));
+  u.rate=.92; u.pitch=1;
+  const vs=window.speechSynthesis.getVoices();
+  const pv=vs.find(v=>v.lang==='en-US'&&v.name.includes('Google'))||vs.find(v=>v.lang==='en-US')||vs[0];
+  if(pv) u.voice=pv;
+  window.speechSynthesis.speak(u);
+}
+
+// ══════════════════════════════════════
+// DUAL AI
+// ══════════════════════════════════════
+function openDualModal(){ openModal('dual-modal'); }
+
+async function runDual(){
+  const topic=document.getElementById('dual-topic').value.trim();
+  const m1=document.getElementById('dual-m1').value;
+  const m2=document.getElementById('dual-m2').value;
+  const rounds=parseInt(document.getElementById('dual-rounds').value)||3;
+  if(!topic){ toast('Enter a topic','err'); return; }
+  closeModals(); hideWelcome();
+  addMsg('assistant','🤖🤖 **Dual AI Debate Started!**\n\n**Topic:** '+topic+'\n**AI Alpha:** '+m1.split('/').pop()+'\n**AI Beta:** '+m2.split('/').pop()+'\n**Rounds:** '+rounds,true);
+
+  let h1=[], h2=[];
+  for(let r=1;r<=rounds;r++){
+    const at=showThink('🤖 AI Alpha — Round '+r+' thinking...');
+    const aPrompt=r===1?`Debate topic: "${topic}". Present your strong opening argument. Be comprehensive, use evidence, be persuasive.`:`Counter-argument debate on "${topic}". AI Beta said: "${h2[h2.length-1]?.content?.substring(0,300)||''}". Respond strongly.`;
+    const aResp=await quickCall(aPrompt,m1,'You are a brilliant debater. Present comprehensive, well-reasoned arguments. Use evidence and logic.');
+    h1.push({role:'assistant',content:aResp}); rmThink(at);
+    addMsg('assistant','',true,`<div class="dual-wrap"><div class="dual-panel"><div class="dp-hd dp-alpha">🤖 AI Alpha — Round ${r} <small style="margin-left:auto;font-weight:400;font-size:.72rem">${m1.split('/').pop()}</small></div><div class="dp-body">${marked.parse(aResp)}</div></div></div>`);
+
+    const bt=showThink('🤖 AI Beta — Round '+r+' thinking...');
+    const bPrompt=`Debate on "${topic}". AI Alpha argues: "${aResp.substring(0,400)}...". Provide counter-arguments, challenge their points, offer different perspective.`;
+    const bResp=await quickCall(bPrompt,m2,'You are a brilliant debater. Challenge arguments intelligently, offer unique perspectives and evidence.');
+    h2.push({role:'assistant',content:bResp}); rmThink(bt);
+    addMsg('assistant','',true,`<div class="dual-wrap"><div class="dual-panel" style="border-color:var(--s)"><div class="dp-hd dp-beta">🤖 AI Beta — Round ${r} <small style="margin-left:auto;font-weight:400;font-size:.72rem">${m2.split('/').pop()}</small></div><div class="dp-body">${marked.parse(bResp)}</div></div></div>`);
+  }
+
+  const st=showThink('⚖️ Generating synthesis...');
+  const syn=await quickCall('Provide a balanced synthesis for this debate about: "'+topic+'". Summarize key arguments from both sides, find common ground, give fair conclusion.','llama-3.3-70b-versatile');
+  rmThink(st);
+  addMsg('assistant','## ⚖️ Debate Synthesis\n\n'+syn,true);
+}
+
+// ══════════════════════════════════════
+// UTILITIES
+// ══════════════════════════════════════
+function showWelcome(){ document.getElementById('welcome').classList.remove('hid'); document.getElementById('msgs').innerHTML=''; }
+function hideWelcome(){ document.getElementById('welcome').classList.add('hid'); }
+function clearMsgs(){ document.getElementById('msgs').innerHTML=''; convHist=[]; }
+function clearChat(){ if(confirm('Clear this chat?')){ clearMsgs(); showWelcome(); toast('Cleared','inf'); } }
+function scrollBot(){ const c=document.getElementById('chat'); c.scrollTo({top:c.scrollHeight,behavior:'smooth'}); }
+function togSB(){ const sb=document.getElementById('sb'); window.innerWidth<=768?sb.classList.toggle('mob-open'):sb.classList.toggle('col'); }
+function hideSplash(){ const s=document.getElementById('splash'); if(s){ s.classList.add('out'); setTimeout(()=>s.remove(),700); } }
+function esc(t){ const d=document.createElement('div'); d.textContent=t; return d.innerHTML; }
+
+function openModal(id){
+  document.getElementById('mov').classList.add('show');
+  const m=document.getElementById(id);
+  m.style.display='block'; setTimeout(()=>m.classList.add('show'),10);
+}
+function closeModals(){
+  document.getElementById('mov').classList.remove('show');
+  document.querySelectorAll('.modal').forEach(m=>{ m.classList.remove('show'); setTimeout(()=>m.style.display='none',200); });
+}
+
+function toast(msg,type='inf'){
+  const w=document.getElementById('toasts');
+  const icons={ok:'✅',err:'❌',inf:'ℹ️'};
+  const t=document.createElement('div'); t.className='toast '+type;
+  t.innerHTML='<span>'+icons[type]+'</span><span>'+msg+'</span>';
+  w.appendChild(t);
+  setTimeout(()=>{ t.style.opacity='0'; t.style.transform='translateX(16px)'; t.style.transition='.3s'; setTimeout(()=>t.remove(),300); },3500);
+}
+
+function exportChat(){
+  const ms=Array.from(document.querySelectorAll('.msg')).map(m=>{
+    const r=m.classList.contains('u')?'User':'MI AI';
+    return '['+r+']\n'+(m.querySelector('.mbub')?.innerText||'')+'\n';
+  }).join('\n---\n\n');
+  const b=new Blob(['MI AI Chat Export\n'+new Date().toLocaleString()+'\nBy Muaaz Iqbal | Muslim Islam Org\n\n'+ms],{type:'text/plain'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download='MI-AI-chat-'+Date.now()+'.txt'; a.click();
+  toast('Exported!','ok');
+}
+
+// Init marked
+document.addEventListener('DOMContentLoaded',()=>{
+  if(window.marked){ marked.setOptions({breaks:true,gfm:true}); }
+  // Splash -> auth after 2.6s
+  setTimeout(()=>{ if(!CU){ hideSplash(); document.getElementById('auth').classList.remove('hid'); } },2600);
+  // Mobile sidebar close on outside click
+  document.addEventListener('click',e=>{
+    if(window.innerWidth<=768){
+      const sb=document.getElementById('sb');
+      if(sb.classList.contains('mob-open')&&!sb.contains(e.target)&&!e.target.closest('.mob-menu')) sb.classList.remove('mob-open');
+    }
+  });
+});
+</script>
 </body>
 </html>
