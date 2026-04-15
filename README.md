@@ -1,35 +1,47 @@
-# MI AI v2 — Muaaz Intelligence
+# MI AI v3 — Muaaz Intelligence
 
 بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
 
-By **Muaaz Iqbal** | Muslim Islam Org | Powered by Groq
+**By Muaaz Iqbal | Muslim Islam Org | Groq Powered**
+
+## Features
+- 12 Latest Groq AI Models (Llama 4, DeepSeek R1, QwQ, etc.)
+- Smart Chat + Pro Thinking + Code Expert
+- PDF Book Generator (beautiful, 500+ pages)
+- Image Generator (Pollinations AI - free)
+- ZIP Project Generator (2000-5000+ lines)
+- Word Document Generator
+- Spreadsheet / CSV Generator
+- File Analysis (PDF, ZIP, Images, Code, CSV, JSON, DOCX...)
+- Web Search Integration
+- Dual AI Debate
+- Quiz Generator
+- Translator (12 languages)
+- Code Review & Fix
+- Voice Chat (STT + TTS)
+- Quran & Islamic Knowledge
+- Firebase Auth + Chat History
+- 24/7 via GitHub Actions
 
 ## Deploy to Vercel
 
 ```bash
 git init
 git add .
-git commit -m "MI AI v2"
+git commit -m "MI AI v3 by Muaaz Iqbal"
 git branch -M main
 git remote add origin https://github.com/YOUR/mi-ai.git
 git push -u origin main
 ```
-Then import on vercel.com → Deploy done!
+Import on **vercel.com** → Deploy in 1 click!
 
-## GitHub Secrets needed
-- `VERCEL_TOKEN`
-- `VERCEL_ORG_ID`  
-- `VERCEL_PROJECT_ID`
+## GitHub Secrets for 24/7
+- `VERCEL_TOKEN` — from vercel.com/account/tokens
+- `VERCEL_ORG_ID` — from .vercel/project.json after first deploy
+- `VERCEL_PROJECT_ID` — from .vercel/project.json
 
-## Features
-- 16 Groq AI Models (Llama 4, DeepSeek R1, QwQ, Llama 3.3, etc.)
-- PDF Book Generator (500+ pages)
-- Image Generator (Pollinations AI - Free)
-- ZIP Project Generator
-- File Analysis (PDF, ZIP, Images, CSV, JSON, Code...)
-- Web Search
-- Voice Chat
-- Dual AI Debate
-- Quran & Islamic Knowledge
-- Firebase Auth + Chat History
-- 24/7 via GitHub Actions
+## Python Backend (Optional)
+```bash
+pip install -r requirements.txt
+python ai.py
+```
