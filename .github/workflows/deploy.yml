@@ -1,53 +1,29 @@
-name: MI AI — Deploy & Keep Alive 24/7
+name: MI AI v3 — Deploy & Keep Alive 24/7
 
 on:
   push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+    branches: [main]
   schedule:
     - cron: '0 */6 * * *'
 
 jobs:
-  # ─────────────────────────────
-  # JOB 1: Deploy to Vercel
-  # ─────────────────────────────
   deploy:
-    name: 🚀 Deploy MI AI to Vercel
+    name: Deploy to Vercel
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-
+    if: github.event_name == 'push'
     steps:
-      - name: 📥 Checkout Code
-        uses: actions/checkout@v4
-
-      - name: 🟢 Setup Node.js 20
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
-
-      - name: 📦 Install Vercel CLI
-        run: npm install -g vercel@latest
-
-      - name: ✅ Validate Project Files
+      - run: npm install -g vercel@latest
+      - name: Validate files
         run: |
-          echo "════════════════════════════════"
-          echo "   MI AI — File Validation"
-          echo "════════════════════════════════"
-          test -f index.html       && echo "✅ index.html"        || echo "❌ index.html MISSING"
-          test -f vercel.json      && echo "✅ vercel.json"       || echo "❌ vercel.json MISSING"
-          test -f src/styles/main.css && echo "✅ main.css"      || echo "❌ main.css MISSING"
-          test -f src/utils/groq.js   && echo "✅ groq.js"       || echo "❌ groq.js MISSING"
-          test -f src/utils/firebase.js && echo "✅ firebase.js"  || echo "❌ firebase.js MISSING"
-          echo "════════════════════════════════"
-          echo "📁 Full file list:"
-          find . -not -path './.git/*' -not -path './node_modules/*' -type f | sort
-          echo "════════════════════════════════"
-
-      - name: 🚀 Deploy to Vercel (Production)
+          echo "Checking files..."
+          ls -la
+          test -f index.html && echo "OK index.html" || (echo "MISSING index.html" && exit 1)
+          test -f vercel.json && echo "OK vercel.json" || (echo "MISSING vercel.json" && exit 1)
+      - name: Deploy
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
@@ -56,37 +32,18 @@ jobs:
           vercel pull --yes --environment=production --token=$VERCEL_TOKEN
           vercel build --prod --token=$VERCEL_TOKEN
           vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN
+      - run: echo "✅ MI AI v3 Deployed! By Muaaz Iqbal | Muslim Islam Org"
 
-      - name: 🎉 Deploy Success
-        run: |
-          echo "════════════════════════════════════════"
-          echo "   ✅ MI AI Deployed Successfully!"
-          echo "   👨‍💻 By Muaaz Iqbal | Muslim Islam Org"
-          echo "   🕌 بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ"
-          echo "════════════════════════════════════════"
-
-  # ─────────────────────────────
-  # JOB 2: Keep Alive (Scheduled)
-  # ─────────────────────────────
   keepalive:
-    name: ⏰ Keep MI AI Alive 24/7
+    name: Keep Alive 24/7
     runs-on: ubuntu-latest
     if: github.event_name == 'schedule'
-
     steps:
-      - name: 📥 Checkout
-        uses: actions/checkout@v4
-
-      - name: 🟢 Ping & Health Check
-        run: |
-          echo "⏰ Keepalive ping — $(date '+%Y-%m-%d %H:%M:%S UTC')"
-          echo "🟢 MI AI is running 24/7 — مَاشَاءَاللَّه"
-
-      - name: 🔄 Auto-commit keepalive
-        run: |
+      - uses: actions/checkout@v4
+      - run: |
           git config user.name "MI AI Bot"
-          git config user.email "mi-ai@muslimislam.org"
-          echo "$(date '+%Y-%m-%d %H:%M:%S')" > .keepalive
+          git config user.email "bot@mi-ai.com"
+          echo "$(date -u)" > .keepalive
           git add .keepalive
-          git diff --staged --quiet || git commit -m "⏰ keepalive: $(date '+%Y-%m-%d %H:%M')"
+          git diff --staged --quiet || git commit -m "keepalive $(date -u '+%Y-%m-%d %H:%M')"
           git push || true
