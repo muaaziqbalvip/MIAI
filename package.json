@@ -1,0 +1,20 @@
+{
+  "name": "mi-ai",
+  "version": "1.0.0",
+  "description": "MI AI - Advanced Intelligence by Muaaz Iqbal | Muslim Islam Org",
+  "author": "Muaaz Iqbal <muaaziqbal@muslimislam.org>",
+  "license": "MIT",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve . -p 3000",
+    "dev": "npx live-server --port=3000 --open=index.html",
+    "deploy": "vercel --prod",
+    "build": "echo 'Static site - no build needed'"
+  },
+  "keywords": ["MI-AI", "Muaaz-Iqbal", "Muslim-Islam-Org", "Groq", "AI"],
+  "devDependencies": {
+    "serve": "^14.2.1",
+    "live-server": "^1.2.2",
+    "vercel": "^33.0.0"
+  }
+}
