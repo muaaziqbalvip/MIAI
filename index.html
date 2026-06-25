@@ -711,7 +711,21 @@ html,body{height:100%;overflow:hidden;font-family:var(--fm);background:var(--bg)
 // ══════════════════════════════════════════════════════
 
 // ── CONFIG ──
-const GROQ = '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';
+const API_KEYS = [
+  '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',
+  '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',
+  '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"'
+];
+
+let currentKey = 0;
+
+function getApiKey(){
+  return API_KEYS[currentKey];
+}
+
+function nextKey(){
+  currentKey = (currentKey + 1) % API_KEYS.length;
+}
 const GURL = 'https://api.groq.com/openai/v1/chat/completions';
 const FB = {
   apiKey:"AIzaSyBbnU8DkthpYQMHOLLyj6M0cc05qXfjMcw",
@@ -876,7 +890,7 @@ async function callG(userMsg,aFiles){
   const msgs=[{role:'system',content:SYS[mode]||SYS.chat},...hist.slice(-18)];
   const tid=showTyp();
   try{
-    const r=await fetch(GURL,{method:'POST',headers:{'Authorization':'Bearer '+GROQ,'Content-Type':'application/json'},
+    const r=await fetch(GURL,{method:'POST',headers:{'Authorization':'Bearer '+getApiKey(),'Content-Type':'application/json'},
       body:JSON.stringify({model:mdl,messages:msgs,max_tokens:8192,temperature:mode==='pro'?.5:.72,stream:true}),
       signal:abrt.signal});
     if(!r.ok){const err=await r.json().catch(()=>({}));throw new Error(err.error?.message||'HTTP '+r.status);}
@@ -921,16 +935,53 @@ async function streamR(res){
 }
 
 async function qCall(msg,model,sys){
-  try{
-    const r=await fetch(GURL,{method:'POST',headers:{'Authorization':'Bearer '+GROQ,'Content-Type':'application/json'},
-      body:JSON.stringify({model:model||'llama-3.3-70b-versatile',messages:[...(sys?[{role:'system',content:sys}]:[]),{role:'user',content:msg}],max_tokens:8192,temperature:.72})});
-    const d=await r.json();
-    if(!r.ok)throw new Error(d.error?.message||'API error');
-    return d.choices?.[0]?.message?.content||'';
-  }catch(e){console.error('qCall:',e);return 'Error: '+e.message;}
-}
-function stopG(){if(abrt){abrt.abort();isGen=false;updSB(false);toast('Stopped','in');}}
 
+  for(let i=0;i<API_KEYS.length;i++){
+
+    try{
+
+      const r = await fetch(GURL,{
+        method:'POST',
+        headers:{
+          'Authorization':'Bearer '+getApiKey(),
+          'Content-Type':'application/json'
+        },
+        body:JSON.stringify({
+          model:model || 'llama-3.3-70b-versatile',
+          messages:[
+            ...(sys ? [{role:'system',content:sys}] : []),
+            {role:'user',content:msg}
+          ],
+          max_tokens:8192,
+          temperature:.72
+        })
+      });
+
+      const d = await r.json();
+
+      if(r.ok){
+        return d.choices?.[0]?.message?.content || '';
+      }
+
+      if(r.status===401 || r.status===429){
+        console.log('Switching Key...');
+        nextKey();
+        continue;
+      }
+
+      throw new Error(d.error?.message || 'API Error');
+
+    }catch(err){
+
+      nextKey();
+
+      if(i===API_KEYS.length-1){
+        return '❌ All API Keys Failed';
+      }
+
+    }
+  }
+}
 // ══════════════════════════════
 // SEND
 // ══════════════════════════════
