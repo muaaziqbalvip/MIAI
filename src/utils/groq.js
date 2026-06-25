@@ -1,15 +1,49 @@
 // ============================================
-// MI AI - Groq API Integration
-// All Models: Fast, Pro Thinking, Long Context
+// MI AI - Groq API Integration v2.0
+// Multi-Key Rotation + Auto Fallback
 // By Muaaz Iqbal | Muslim Islam Org
 // ============================================
 
-const GROQ_API_KEY = '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';
+// ---- Multiple API Keys (Auto Rotation) ----
+const GROQ_API_KEYS = [
+  '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',
+  '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',
+  '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',
+  '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',
+  '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',
+  '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'
+];
 const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
+
+// ---- Key Rotation State ----
+let currentKeyIndex = 0;
+let keyFailCount = {};
+const KEY_MAX_FAILS = 2; // Switch key after 2 consecutive fails
+
+function getCurrentKey() {
+  return GROQ_API_KEYS[currentKeyIndex];
+}
+
+function rotateKey(failedIndex) {
+  keyFailCount[failedIndex] = (keyFailCount[failedIndex] || 0) + 1;
+  // Try next key
+  for (let i = 1; i <= GROQ_API_KEYS.length; i++) {
+    const nextIdx = (failedIndex + i) % GROQ_API_KEYS.length;
+    if ((keyFailCount[nextIdx] || 0) < KEY_MAX_FAILS) {
+      currentKeyIndex = nextIdx;
+      console.log(`[MI AI] Switched to API key #${currentKeyIndex + 1}`);
+      return true;
+    }
+  }
+  // All keys exhausted — reset counts and start over
+  keyFailCount = {};
+  currentKeyIndex = 0;
+  console.warn('[MI AI] All keys cycled, resetting rotation');
+  return false;
+}
 
 // ---- Available Models ----
 const GROQ_MODELS = {
-  // Fast Models
   'llama-3.3-70b-versatile': {
     name: 'Llama 3.3 70B',
     type: 'fast',
@@ -40,12 +74,17 @@ const GROQ_MODELS = {
     contextWindow: 8192,
     description: 'Best for tool use & functions'
   },
-  // Pro Thinking Models
   'deepseek-r1-distill-llama-70b': {
     name: 'DeepSeek R1 Pro',
     type: 'thinking',
     contextWindow: 128000,
     description: 'Deep thinking — best for complex problems'
+  },
+  'deepseek-r1-distill-qwen-32b': {
+    name: 'DeepSeek R1 Qwen',
+    type: 'thinking',
+    contextWindow: 128000,
+    description: 'DeepSeek Qwen reasoning'
   },
   'qwen-qwq-32b': {
     name: 'QwQ 32B Reasoning',
@@ -64,6 +103,12 @@ const GROQ_MODELS = {
     type: 'premium',
     contextWindow: 128000,
     description: 'Llama 4 Scout — efficient'
+  },
+  'compound-beta': {
+    name: 'Compound Beta',
+    type: 'multi',
+    contextWindow: 128000,
+    description: 'Multi-step reasoning with tools'
   }
 };
 
@@ -76,7 +121,7 @@ let currentAbortController = null;
 
 // ---- System Prompts by Mode ----
 const SYSTEM_PROMPTS = {
-  chat: `You are MI AI, an advanced artificial intelligence created by Muaaz Iqbal under Muslim Islam Org. 
+  chat: `You are MI AI, an advanced artificial intelligence created by Muaaz Iqbal under Muslim Islam Org.
 You are extremely capable, helpful, honest, and brilliant. You have comprehensive knowledge across all domains.
 Always respond with depth, clarity, and accuracy. Use markdown formatting when appropriate.
 When asked to write code, always write COMPLETE, WORKING, PRODUCTION-READY code with no placeholders.
@@ -117,7 +162,7 @@ Provide actionable insights and recommendations.`,
   pdf: `You are MI AI PDF & Document Generation Expert by Muaaz Iqbal (Muslim Islam Org).
 You specialize in creating:
 1. Complete book manuscripts (500+ pages when requested)
-2. Research papers and academic documents  
+2. Research papers and academic documents
 3. Technical manuals and documentation
 4. Islamic books with proper Arabic text
 5. Educational materials and curricula
@@ -183,27 +228,17 @@ function changeModel(model) {
 function setMode(mode) {
   currentMode = mode;
 
-  // Update UI
   document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
   const activeItem = document.querySelector(`[data-mode="${mode}"]`);
   if (activeItem) activeItem.classList.add('active');
 
-  // Update badge
   const modeNames = {
-    chat: 'Smart Chat',
-    pro: 'Pro Thinking',
-    code: 'Code Expert',
-    files: 'File Analysis',
-    pdf: 'PDF Generator',
-    image: 'Image Generation',
-    quran: 'Quran & Islam',
-    dual: 'Dual AI',
-    voice: 'Voice Chat',
-    web: 'Web Search'
+    chat: 'Smart Chat', pro: 'Pro Thinking', code: 'Code Expert',
+    files: 'File Analysis', pdf: 'PDF Generator', image: 'Image Generation',
+    quran: 'Quran & Islam', dual: 'Dual AI', voice: 'Voice Chat', web: 'Web Search'
   };
   document.getElementById('current-mode-badge').textContent = modeNames[mode] || mode;
 
-  // Switch model for thinking modes
   if (mode === 'pro') {
     selectedModel = 'deepseek-r1-distill-llama-70b';
     document.getElementById('model-selector').value = selectedModel;
@@ -212,7 +247,6 @@ function setMode(mode) {
     document.getElementById('model-selector').value = selectedModel;
   }
 
-  // Open modals for specific modes
   if (mode === 'dual') {
     openModal('dual-modal');
     return;
@@ -220,6 +254,54 @@ function setMode(mode) {
 
   showToast(`Mode: ${modeNames[mode]}`, 'info');
   newChat();
+}
+
+// ---- Core Fetch with Key Rotation ----
+async function groqFetchWithRotation(requestBody, signal, retries = GROQ_API_KEYS.length) {
+  let lastError = null;
+  for (let attempt = 0; attempt < retries; attempt++) {
+    const keyIdx = currentKeyIndex;
+    const apiKey = getCurrentKey();
+    try {
+      const response = await fetch(GROQ_API_URL, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${apiKey}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestBody),
+        signal
+      });
+
+      if (response.ok) {
+        // Reset fail count for this key on success
+        keyFailCount[keyIdx] = 0;
+        return response;
+      }
+
+      // Handle API errors
+      const errData = await response.json().catch(() => ({}));
+      const errMsg = errData.error?.message || `HTTP ${response.status}`;
+      
+      // Rate limit or auth error — rotate key
+      if (response.status === 429 || response.status === 401 || response.status === 403) {
+        console.warn(`[MI AI] Key #${keyIdx + 1} error: ${errMsg}. Rotating...`);
+        rotateKey(keyIdx);
+        lastError = new Error(errMsg);
+        await new Promise(r => setTimeout(r, 500)); // small delay before retry
+        continue;
+      }
+
+      throw new Error(errMsg);
+    } catch (err) {
+      if (err.name === 'AbortError') throw err;
+      lastError = err;
+      // On network error, try rotating key
+      rotateKey(keyIdx);
+      await new Promise(r => setTimeout(r, 300));
+    }
+  }
+  throw lastError || new Error('All API keys exhausted. Please try again later.');
 }
 
 // ---- Main Chat Function ----
@@ -232,24 +314,20 @@ async function callGroqAPI(userMessage, attachedFiles = []) {
   isGenerating = true;
   currentAbortController = new AbortController();
 
-  // Build message with file context
   let fullMessage = userMessage;
   if (attachedFiles.length > 0) {
     const fileContext = attachedFiles.map(f => `\n\n[File: ${f.name} (${f.type})]\n${f.content}`).join('');
     fullMessage = userMessage + fileContext;
   }
 
-  // Add to history
   conversationHistory.push({ role: 'user', content: fullMessage });
 
-  // Build messages array
   const systemPrompt = SYSTEM_PROMPTS[currentMode] || SYSTEM_PROMPTS.chat;
   const messages = [
     { role: 'system', content: systemPrompt },
-    ...conversationHistory.slice(-20) // Keep last 20 messages for context
+    ...conversationHistory.slice(-20)
   ];
 
-  // Show typing indicator
   const typingId = showTypingIndicator();
 
   try {
@@ -262,35 +340,15 @@ async function callGroqAPI(userMessage, attachedFiles = []) {
       stream: true
     };
 
-    const response = await fetch(GROQ_API_URL, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${GROQ_API_KEY}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(requestBody),
-      signal: currentAbortController.signal
-    });
+    const response = await groqFetchWithRotation(requestBody, currentAbortController.signal);
 
-    if (!response.ok) {
-      const errData = await response.json();
-      throw new Error(errData.error?.message || `API Error: ${response.status}`);
-    }
-
-    // Remove typing indicator
     removeTypingIndicator(typingId);
-
-    // Stream the response
     const assistantMessage = await streamResponse(response);
-
-    // Add to history
     conversationHistory.push({ role: 'assistant', content: assistantMessage });
 
     // Save to Firebase
     await saveMessageToFirebase({ role: 'user', content: userMessage });
     await saveMessageToFirebase({ role: 'assistant', content: assistantMessage });
-
-    // Save interaction data
     saveInteraction('chat', { mode: currentMode, model: selectedModel, msgLength: userMessage.length });
 
     return assistantMessage;
@@ -301,10 +359,12 @@ async function callGroqAPI(userMessage, attachedFiles = []) {
     } else {
       console.error('Groq API Error:', err);
       let errorMsg = `❌ **Error:** ${err.message}`;
-      if (err.message.includes('rate_limit')) {
-        errorMsg = '⏳ Rate limit reached. Please wait a moment and try again.';
-      } else if (err.message.includes('invalid_api_key')) {
-        errorMsg = '🔑 API key error. Please check configuration.';
+      if (err.message.includes('rate_limit') || err.message.includes('429')) {
+        errorMsg = '⏳ **Rate limit reached.** Switching API key automatically... Please resend your message.';
+      } else if (err.message.includes('invalid_api_key') || err.message.includes('401')) {
+        errorMsg = '🔑 **API key error.** Rotating to next key... Please try again.';
+      } else if (err.message.includes('All API keys')) {
+        errorMsg = '⚠️ **All API keys are currently rate-limited.** Please wait 1–2 minutes and try again.';
       }
       appendMessage('assistant', errorMsg, true);
     }
@@ -320,7 +380,6 @@ async function streamResponse(response) {
   const reader = response.body.getReader();
   const decoder = new TextDecoder();
 
-  // Create message element for streaming
   const msgId = 'msg_' + Date.now();
   const msgEl = createStreamingMessageElement(msgId);
   hideWelcome();
@@ -341,7 +400,6 @@ async function streamResponse(response) {
         if (line.startsWith('data: ')) {
           const data = line.slice(6).trim();
           if (data === '[DONE]') break;
-
           try {
             const parsed = JSON.parse(data);
             const delta = parsed.choices?.[0]?.delta?.content || '';
@@ -357,7 +415,6 @@ async function streamResponse(response) {
     if (err.name !== 'AbortError') console.error('Stream error:', err);
   }
 
-  // Finalize message
   finalizeStreamingMessage(msgId, fullText);
   return fullText;
 }
@@ -374,41 +431,61 @@ function stopGeneration() {
 
 // ---- Web Search + AI ----
 async function callGroqWithWebSearch(userMessage, searchResults) {
-  const searchContext = searchResults.map((r, i) => 
+  const searchContext = searchResults.map((r, i) =>
     `[Source ${i+1}]: ${r.title}\nURL: ${r.url}\nContent: ${r.snippet}`
   ).join('\n\n');
 
   const enhancedMessage = `${userMessage}\n\n--- Web Search Results ---\n${searchContext}\n---\nPlease analyze these results and provide a comprehensive answer.`;
-
   return callGroqAPI(enhancedMessage);
 }
 
-// ---- Get Quick Response (no stream) ----
+// ---- Get Quick Response (no stream, with key rotation) ----
 async function getQuickResponse(message, model = 'llama-3.1-8b-instant', systemPrompt = '') {
-  try {
-    const response = await fetch(GROQ_API_URL, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${GROQ_API_KEY}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        model,
-        messages: [
-          ...(systemPrompt ? [{ role: 'system', content: systemPrompt }] : []),
-          { role: 'user', content: message }
-        ],
-        max_tokens: 4096,
-        temperature: 0.7
-      })
-    });
+  for (let attempt = 0; attempt < GROQ_API_KEYS.length; attempt++) {
+    const keyIdx = currentKeyIndex;
+    try {
+      const response = await fetch(GROQ_API_URL, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${getCurrentKey()}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          model,
+          messages: [
+            ...(systemPrompt ? [{ role: 'system', content: systemPrompt }] : []),
+            { role: 'user', content: message }
+          ],
+          max_tokens: 8192,
+          temperature: 0.7
+        })
+      });
 
-    const data = await response.json();
-    return data.choices?.[0]?.message?.content || '';
-  } catch (err) {
-    console.error('Quick response error:', err);
-    return '';
+      if (response.ok) {
+        keyFailCount[keyIdx] = 0;
+        const data = await response.json();
+        return data.choices?.[0]?.message?.content || '';
+      }
+
+      // Rate limit → rotate
+      if (response.status === 429 || response.status === 401) {
+        rotateKey(keyIdx);
+        await new Promise(r => setTimeout(r, 400));
+        continue;
+      }
+
+      const errData = await response.json().catch(() => ({}));
+      throw new Error(errData.error?.message || `HTTP ${response.status}`);
+    } catch (err) {
+      if (attempt === GROQ_API_KEYS.length - 1) {
+        console.error('Quick response error (all keys tried):', err);
+        return `Error: ${err.message}`;
+      }
+      rotateKey(keyIdx);
+      await new Promise(r => setTimeout(r, 300));
+    }
   }
+  return 'Error: Could not complete request after trying all API keys.';
 }
 
 // ---- Analyze File with AI ----
@@ -457,9 +534,9 @@ Provide correct answers and explanations.`
 
 // ---- Check if message needs web search ----
 function needsWebSearch(message) {
-  const webKeywords = ['latest', 'recent', 'today', 'news', 'current', '2024', '2025', '2026', 
+  const webKeywords = ['latest', 'recent', 'today', 'news', 'current', '2024', '2025', '2026',
     'search', 'find', 'look up', 'what happened', 'who is', 'price of', 'weather',
-    'stock', 'cricket', 'match', 'score', 'trending'];
+    'stock', 'cricket', 'match', 'score', 'trending', 'ابھی', 'آج'];
   const lower = message.toLowerCase();
   return webKeywords.some(kw => lower.includes(kw));
 }
@@ -467,4 +544,14 @@ function needsWebSearch(message) {
 // ---- Clear Conversation ----
 function clearConversation() {
   conversationHistory = [];
+}
+
+// ---- API Key Status (for debugging) ----
+function getAPIKeyStatus() {
+  return GROQ_API_KEYS.map((key, i) => ({
+    index: i + 1,
+    preview: key.substring(0, 12) + '...',
+    active: i === currentKeyIndex,
+    fails: keyFailCount[i] || 0
+  }));
 }
