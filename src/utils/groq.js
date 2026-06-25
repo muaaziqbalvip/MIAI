@@ -113,7 +113,7 @@ const GROQ_MODELS = {
 };
 
 // ---- Current State ----
-let selectedModel = 'llama-3.3-70b-versatile';
+let selectedModel = 'compound-beta';
 let currentMode = 'chat';
 let conversationHistory = [];
 let isGenerating = false;
