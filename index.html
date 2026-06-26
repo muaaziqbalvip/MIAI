@@ -233,6 +233,8 @@ html,body{height:100%;overflow:hidden;font-family:var(--fm);background:var(--bg)
 @keyframes wave{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.8)}}
 .call-wave.ai span{background:var(--s)}
 .call-wave.silent span{animation:none;height:4px}
+.call-lang-badge{display:inline-block;padding:4px 12px;border-radius:20px;font-size:.75rem;font-weight:700;background:rgba(124,111,255,.18);color:var(--pl);border:1px solid rgba(124,111,255,.3);margin-top:6px}
+.call-rtl{direction:rtl;font-family:var(--fa)}
 
 /* VOICE */
 .vi{display:flex;align-items:center;gap:8px;padding:8px 14px;background:rgba(255,107,107,.08);border:1px solid rgba(255,107,107,.25);border-radius:20px;font-size:.79rem;color:var(--acc);margin:7px 0}
@@ -504,7 +506,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--fm);background:var(--bg)
           <button class="ws" onclick="ss('Create a complete React + Express full-stack todo app with auth, MongoDB, dark mode — 4000+ lines')">💻 Full-Stack React App</button>
           <button class="ws" onclick="ss('Tell me Surah Al-Baqarah verse 255 (Ayatul Kursi) with Arabic, transliteration, and full tafseer')">🕌 Ayatul Kursi Tafseer</button>
           <button class="ws" onclick="ss('Trading quiz: create 15 questions on technical analysis, candlestick patterns, and chart reading')">📝 Trading Quiz 15 Qs</button>
-          <button class="ws" onclick="startCall()">📞 Live AI Call</button>
+          <button class="ws" onclick="startCall(null)">📞 Live AI Call</button>
         </div>
       </div>
       <div class="msgs" id="msgs"></div>
@@ -530,7 +532,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--fm);background:var(--bg)
         <button class="tb" onclick="opn('sheet-m')" title="Spreadsheet"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/></svg></button>
         <button class="tb" onclick="doWS()" title="Web Search"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></button>
         <button class="tb" id="vbtn" onclick="togV()" title="Voice"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/></svg></button>
-        <button class="tb" onclick="startCall()" title="Live AI Call" style="color:var(--s)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6 6l.87-1a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></button>
+        <button class="tb" onclick="startCall(null)" title="Live AI Call" style="color:var(--s)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6 6l.87-1a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></button>
         <button class="tb" onclick="opn('dual-m')" title="Dual AI"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg></button>
         <button class="tb" onclick="opn('quiz-m')" title="Quiz"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></button>
         <button class="tb" onclick="opn('tr-m')" title="Translate"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8l6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12M7 2h1"/><path d="m22 22-5-10-5 10M14 18h6"/></svg></button>
@@ -1023,7 +1025,9 @@ let mode='chat',mdl='llama-3.3-70b-versatile',iSz='512x512';
 
 // ── SYSTEM PROMPTS ──
 const SYS={
-  chat:`You are MI AI — Advanced Intelligence by Muaaz Iqbal (Muslim Islam Org). Brilliant, helpful, comprehensive. Use rich markdown. Write COMPLETE answers, never truncate. For code: full working implementation — 2000-5000+ lines when asked. No shortcuts. Begin Islamic answers with بِسْمِ اللَّهِ`,
+  chat:`You are MI AI — Advanced Intelligence by Muaaz Iqbal (Muslim Islam Org). Brilliant, helpful, comprehensive. Use rich markdown.
+RESPONSE LENGTH RULE: For simple greetings/questions (hi, what is X, yes/no): reply in 1-3 sentences. For medium topics: 1-3 paragraphs. For deep/complex/code requests: full detailed response, never truncate. Match length to complexity.
+For code: full working implementation — 2000-5000+ lines when asked. No shortcuts. Begin Islamic answers with بِسْمِ اللَّهِ`,
   pro:`You are MI AI Pro Thinking by Muaaz Iqbal. Think step-by-step deeply. Show reasoning. Extremely detailed. Code: COMPLETE implementations — all functions, all edge cases. Never truncate.`,
   code:`You are MI AI Code Expert by Muaaz Iqbal — world's best programmer. ALWAYS write COMPLETE working code. NEVER use '...' or truncate. Write 2000-5000+ lines when asked. Full error handling, comments, tests. Expert in ALL languages.`,
   files:`You are MI AI File Analysis Expert by Muaaz Iqbal. Analyze any file: PDFs, images, ZIPs, code, CSV, JSON, Excel, Word. Provide comprehensive analysis, insights, statistics, recommendations.`,
@@ -1046,8 +1050,34 @@ async function doLogin(){hideErr();const em=document.getElementById('le').value.
 async function doReg(){hideErr();const nm=document.getElementById('rn').value.trim(),em=document.getElementById('re').value.trim(),pw=document.getElementById('rp').value;if(!nm||!em||!pw){showErr('Fill all fields');return;}if(pw.length<6){showErr('Password 6+ chars');return;}try{const c=await auth.createUserWithEmailAndPassword(em,pw);await c.user.updateProfile({displayName:nm});await db.ref('users/'+c.user.uid+'/profile').set({name:nm,email:em,createdAt:Date.now(),plan:'free'});}catch(e){showErr({'auth/email-already-in-use':'Email already registered','auth/weak-password':'Password too weak','auth/invalid-email':'Invalid email'}[e.code]||'Register failed: '+e.message);}}
 async function doGoogle(){hideErr();try{const r=await auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());const s=await db.ref('users/'+r.user.uid+'/profile').once('value');if(!s.exists())await db.ref('users/'+r.user.uid+'/profile').set({name:r.user.displayName||'User',email:r.user.email,createdAt:Date.now(),plan:'free'});}catch(e){showErr('Google login failed: '+e.message);}}
 async function doLogout(){try{await auth.signOut();toast('Logged out','in');}catch(e){}}
-function onLogin(u){hideSpl();document.getElementById('auth').classList.remove('show');document.getElementById('app').classList.add('show');const n=u.displayName||u.email.split('@')[0];document.getElementById('uname').textContent=n;document.getElementById('uemail').textContent=u.email;document.getElementById('uav').textContent=n.charAt(0).toUpperCase();ldHist();newChat();}
+function onLogin(u){hideSpl();document.getElementById('auth').classList.remove('show');document.getElementById('app').classList.add('show');const n=u.displayName||u.email.split('@')[0];document.getElementById('uname').textContent=n;document.getElementById('uemail').textContent=u.email;document.getElementById('uav').textContent=n.charAt(0).toUpperCase();ldHist();newChat();checkYTPermission();}
 function onLogout(){document.getElementById('auth').classList.add('show');document.getElementById('app').classList.remove('show');cid=null;hist=[];}
+
+// ── YOUTUBE DB — Admin controls video embedding ──
+const YT_DB_PATH='mi_ai_settings/youtube';
+let ytEnabled=false,ytAdminApproved=false;
+
+async function checkYTPermission(){
+  if(!CU)return false;
+  try{
+    const s=await db.ref(YT_DB_PATH+'/enabled').once('value');
+    ytEnabled=!!s.val();
+    const ua=await db.ref(YT_DB_PATH+'/approved_users/'+CU.uid).once('value');
+    ytAdminApproved=!!ua.val();
+  }catch(e){ytEnabled=true;}// default allow if db fails
+  return ytEnabled;
+}
+async function requestYTPermission(){
+  if(!CU)return;
+  await db.ref(YT_DB_PATH+'/permission_requests/'+CU.uid).set({
+    name:CU.displayName||'User',email:CU.email,ts:Date.now(),status:'pending'
+  });
+  toast('YouTube access requested — admin will approve','in');
+}
+async function adminToggleYT(enable){
+  await db.ref(YT_DB_PATH+'/enabled').set(enable);
+  toast('YouTube '+(enable?'enabled':'disabled'),'ok');
+}
 
 // ── CHAT PERSISTENCE ──
 async function svMsg(role,content){if(!CU||!cid)return;try{const ref=db.ref('users/'+CU.uid+'/chats/'+cid);const m=await ref.child('meta').once('value');const safeContent=(content||'').substring(0,50).replace(/[#*`]/g,'');if(!m.exists())await ref.child('meta').set({title:safeContent,createdAt:Date.now(),updatedAt:Date.now(),mode,model:mdl});else await ref.child('meta/updatedAt').set(Date.now());await ref.child('messages').push({role,content:(content||'').substring(0,5000),ts:Date.now()});}catch(e){console.error('svMsg:',e);}}
@@ -1091,7 +1121,7 @@ async function callG(userMsg,aFiles){
       const ki=_ki;
       try{
         const r=await fetch(GURL,{method:'POST',headers:{'Authorization':'Bearer '+gKey(),'Content-Type':'application/json'},
-          body:JSON.stringify({model:mdl,messages:msgs,max_tokens:8192,temperature:mode==='pro'?.5:.72,stream:true}),
+          body:JSON.stringify({model:mdl,messages:msgs,max_tokens:isDeepTopic(full)?8192:2048,temperature:mode==='pro'?.5:.72,stream:true}),
           signal:abrt.signal});
         if(r.ok){_kf[ki]=0;resp=r;break;}
         const errD=await r.json().catch(()=>({}));
@@ -1136,13 +1166,13 @@ async function streamR(res){
   finStream(mid,full);return full;
 }
 
-// qCall — non-streaming with key rotation
-async function qCall(msg,model,sys){
+// qCall — non-streaming with key rotation + optional history
+async function qCall(msg,model,sys,history){
   for(let attempt=0;attempt<API_KEYS.length;attempt++){
     const ki=_ki;
     try{
       const r=await fetch(GURL,{method:'POST',headers:{'Authorization':'Bearer '+gKey(),'Content-Type':'application/json'},
-        body:JSON.stringify({model:model||'llama-3.3-70b-versatile',messages:[...(sys?[{role:'system',content:sys}]:[]),{role:'user',content:msg}],max_tokens:8192,temperature:.72})});
+        body:JSON.stringify({model:model||'llama-3.3-70b-versatile',messages:[...(sys?[{role:'system',content:sys}]:[]),...(history||[]).slice(-8),{role:'user',content:msg}],max_tokens:8192,temperature:.72})});
       const d=await r.json();
       if(r.ok){_kf[ki]=0;return d.choices?.[0]?.message?.content||'';}
       if(r.status===429||r.status===401){rotKey(ki);await new Promise(res=>setTimeout(res,400));continue;}
@@ -1162,7 +1192,37 @@ async function sendMsg(){
   const inp=document.getElementById('mi');const msg=inp.value.trim();
   if(!msg&&!ufiles.length)return;if(isGen){stopG();return;}
   inp.value='';inp.style.height='auto';hwlc();
-  if(mode==='img'&&!ufiles.length){addMsg('user',msg);await genImg(msg);clrFiles();return;}
+
+  // AUTO IMAGE: if user asks to draw/make/generate image in any mode
+  if(isImgReq(msg)&&!ufiles.length){
+    addMsg('user',msg);
+    const tid=showThi('🎨 Creating image...');
+    const iPrompt=await autoGenImage(msg);
+    rmEl(tid);
+    await genImg(iPrompt);
+    clrFiles();return;
+  }
+
+  // YOUTUBE EMBED: if user wants a video
+  if(needsYT(msg)){
+    addMsg('user',msg);
+    const q=ytQuery(msg);
+    const ytHtml=mkYTEmbed(q,msg);
+    addMsg('assistant','',true,ytHtml);
+    // Also give AI explanation
+    const exp=await qCall('Briefly explain: '+msg+' in 3-4 sentences.',mdl,SYS[mode]||SYS.chat);
+    addMsg('assistant',exp,true);
+    clrFiles();return;
+  }
+
+  if(mode==='img'&&!ufiles.length){
+    addMsg('user',msg);
+    const tid=showThi('✨ Creating optimized image prompt...');
+    const p=await autoGenImage(msg);
+    rmEl(tid);
+    await genImg(p);
+    clrFiles();return;
+  }
   if(mode==='web'||needsWeb(msg)){addMsg('user',msg);await doSearch(msg);clrFiles();return;}
   if(mode==='translate'&&!ufiles.length){addMsg('user',msg);await doTr(msg,'Arabic');clrFiles();return;}
   if(mode==='trading'){addMsg('user',msg);await trdChat(msg);clrFiles();return;}
@@ -1170,6 +1230,31 @@ async function sendMsg(){
   await callG(msg,[...ufiles]);clrFiles();
 }
 function ss(t){document.getElementById('mi').value=t;sendMsg();}
+
+// YouTube embed HTML builder
+function mkYTEmbed(query,origMsg){
+  const enc=encodeURIComponent(query);
+  const ytSearch='https://www.youtube.com/results?search_query='+enc;
+  return `<div style="border:1px solid rgba(255,0,0,.25);border-radius:14px;overflow:hidden;background:var(--bgc)">
+    <div style="padding:10px 14px;border-bottom:1px solid var(--br);display:flex;align-items:center;gap:8px;background:rgba(255,0,0,.06)">
+      <span style="color:#FF0000;font-size:1.1rem">▶</span>
+      <span style="font-weight:700;font-size:.88rem;flex:1">YouTube: <em style="color:var(--ts)">${query.substring(0,55)}</em></span>
+      <a href="${ytSearch}" target="_blank" style="font-size:.72rem;color:#FF0000;text-decoration:none;padding:3px 8px;border:1px solid rgba(255,0,0,.3);border-radius:6px">Open ↗</a>
+    </div>
+    <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;background:#000">
+      <iframe
+        src="https://www.youtube-nocookie.com/embed?listType=search&list=${enc}&autoplay=0&rel=0&modestbranding=1&hl=ur"
+        style="position:absolute;top:0;left:0;width:100%;height:100%;border:none"
+        allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"
+        allowfullscreen loading="lazy">
+      </iframe>
+    </div>
+    <div style="padding:8px 14px;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      <a href="${ytSearch}" target="_blank" class="dbtn" style="font-size:.78rem;padding:6px 12px;background:linear-gradient(135deg,#FF0000,#cc0000)">▶ Search on YouTube</a>
+      <a href="https://www.youtube.com/results?search_query=${enc}&sp=EgIQAQ%3D%3D" target="_blank" class="dbtn" style="font-size:.78rem;padding:6px 12px;background:linear-gradient(135deg,#1a1a2e,#16213e)">🎓 Courses</a>
+    </div>
+  </div>`;
+}
 function onK(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}}
 function aS(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,200)+'px';}
 function updSB(l){const b=document.getElementById('sbt');b.innerHTML=l?'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>':'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>';}
@@ -1354,7 +1439,22 @@ async function bldPDF({topic,btype,outline,content,cover,toc,pages}){
 // IMAGE GENERATOR
 // ══════════════════════════════
 function setSz(btn,sz){document.querySelectorAll('.szb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');iSz=sz;}
-async function rImg(){const prompt=document.getElementById('ip').value.trim(),style=document.getElementById('is').value;const four=document.getElementById('i4v').checked;if(!prompt){toast('Describe the image','er');return;}cls();hwlc();if(four)await gen4Imgs(prompt+', '+style);else await genImg(prompt+', '+style);}
+async function rImg(){
+  let prompt=(document.getElementById('ip').value||'').trim();
+  const style=document.getElementById('is').value;
+  const four=document.getElementById('i4v').checked;
+  if(!prompt){toast('Describe the image','er');return;}
+  cls();hwlc();
+  // Auto-enhance prompt with AI
+  const tid=showThi('✨ Enhancing prompt with AI...');
+  try{
+    const enhanced=await qCall('Enhance this image generation prompt to be more vivid and detailed (max 30 words): "'+prompt+'". Return ONLY the enhanced prompt.','llama-3.1-8b-instant');
+    if(enhanced&&enhanced.length>10)prompt=enhanced.replace(/"/g,'');
+  }catch(e){}
+  rmEl(tid);
+  if(four)await gen4Imgs(prompt+', '+style);
+  else await genImg(prompt+', '+style);
+}
 async function genImg(prompt){const tid=showThi('🎨 Generating image...');const[W,H]=iSz.split('x').map(Number);const seed=Math.floor(Math.random()*999999);const enc=encodeURIComponent((prompt||'').substring(0,500));const url='https://image.pollinations.ai/prompt/'+enc+'?width='+W+'&height='+H+'&seed='+seed+'&nologo=true&enhance=true';const url2='https://image.pollinations.ai/prompt/'+enc+'?width='+W+'&height='+H+'&seed='+(seed+1)+'&nologo=true';rmEl(tid);const html=`<div class="ir"><img class="ir-img" src="${url}" alt="Generated" onerror="this.src='${url2}'" loading="lazy" style="min-height:200px;background:var(--bgi)"/><div class="ir-info"><p style="font-size:.81rem;color:var(--ts);margin-bottom:4px">Prompt: ${(prompt||'').substring(0,80)}...</p><p style="font-size:.75rem;color:var(--tm)">Size: ${iSz} · Seed: ${seed}</p><div class="ir-acts"><a class="dl g" href="${url}" download="MI-AI-img-${Date.now()}.png">⬇ Download</a><button class="dl p" onclick="genImg('${enc.substring(0,60)}')">🔄 Regenerate</button><button class="dl r" onclick="gen4Imgs('${enc.substring(0,60)}')">4 Variations</button></div></div></div>`;addMsg('assistant','',true,html);toast('Image generated!','ok');}
 async function gen4Imgs(prompt){const tid=showThi('🎨 Generating 4 variations...');const[W,H]=iSz.split('x').map(Number);const w2=Math.floor(W/2),h2=Math.floor(H/2);const enc=encodeURIComponent((prompt||'').substring(0,400));const imgs=Array.from({length:4},()=>'https://image.pollinations.ai/prompt/'+enc+'?width='+w2+'&height='+h2+'&seed='+Math.floor(Math.random()*999999)+'&nologo=true');rmEl(tid);const html='<div><p style="font-weight:700;margin-bottom:10px">🎨 4 Variations</p><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">'+imgs.map((u,i)=>`<div><img src="${u}" style="width:100%;border-radius:9px;display:block;background:var(--bgi);min-height:100px" loading="lazy" onerror="this.style.display='none'"/><a href="${u}" download="MI-AI-v${i+1}-${Date.now()}.png" style="display:block;text-align:center;font-size:.74rem;color:var(--sl);margin-top:4px">Download V${i+1}</a></div>`).join('')+'</div></div>';addMsg('assistant','',true,html);}
 
@@ -1609,31 +1709,97 @@ async function genTradeIdea(){
 }
 
 // ══════════════════════════════
-// LIVE AI CALL SYSTEM
+// SMART SEND — short/deep logic + auto image + YouTube embed
+// ══════════════════════════════
+// Detect if message is requesting image
+function isImgReq(msg){
+  return /\b(image|picture|photo|draw|generate|create|make|show)\b.*\b(image|picture|photo|art|illustration|graphic|logo|banner|design|painting)\b|\b(image|picture|draw|generate)\b/i.test(msg);
+}
+// Detect if message needs YouTube video
+function needsYT(msg){
+  return /\b(video|watch|tutorial|explain visually|show me video|youtube|lecture|course video|learn from video)\b/i.test(msg);
+}
+// Detect deep/complex topic
+function isDeepTopic(msg){
+  const deep=/\b(explain|how does|why|difference between|compare|analyze|write code|algorithm|implement|create a|step by step|in detail|complete guide|full|comprehensive|research|history of|what is the|meaning of)\b/i;
+  const short=/^(hi|hello|thanks|ok|yes|no|sure|cool|great|bye|salam|assalam|kya hal|theek ho)/i;
+  return !short.test(msg.trim()) && (deep.test(msg) || msg.length > 80 || msg.split(' ').length > 12);
+}
+// Detect language of message
+function detectLang(msg){
+  if(/[\u0600-\u06FF]/.test(msg)) return 'arabic';
+  if(/[آاابپتثجچحخدذرزژسشصضطظعغفقکگلمنوهیئ]/.test(msg) || /\b(kya|hai|hain|ka|ki|ke|aur|jo|nahi|ap|mujhe|kro|bta|btao|agr|agar|tum|hum|yeh|woh|ise|usse|mera|meri|kaise|kab|kaha|kyun|kuch)\b/i.test(msg)) return 'urdu';
+  return 'english';
+}
+// Extract YouTube search query from message
+function ytQuery(msg){
+  return msg.replace(/\b(show me|find|search|watch|tutorial on|video about|youtube|lecture on|explain via video)\b/gi,'').trim().replace(/[?!.]/g,'').substring(0,80);
+}
+// Generate auto image prompt from topic
+async function autoGenImage(topic){
+  const prompt=await qCall('Create a short, vivid image generation prompt (max 20 words) for: "'+topic+'". Return ONLY the prompt, no explanation.','llama-3.1-8b-instant');
+  return (prompt||topic).substring(0,200).replace(/"/g,'');
+}
+
+// ══════════════════════════════
+// LIVE AI CALL SYSTEM v2 — Multilingual, Real-time, Natural
 // ══════════════════════════════
 let callActive=false,callMuted=false,callRec=null,callSpeaking=false;
-let callHistory=[];
+let callHistory=[],callLang='en-US',callLangLabel='English';
 
-function startCall(){
+function startCall(lang,langLabel){
   const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(!SR){toast('Voice not supported in this browser','er');return;}
-  if(!window.speechSynthesis){toast('Text-to-Speech not supported','er');return;}
+  if(!SR){toast('Use Chrome for voice call','er');return;}
+  if(!lang){
+    // Show lang picker
+    const _ov=document.getElementById('call-overlay');
+    _ov.classList.add('show');_ov.style.display='flex';
+    _ov.innerHTML=`
+      <div style="font-size:4rem;margin-bottom:12px">🤖</div>
+      <div style="font-size:1.4rem;font-weight:700;color:#fff;margin-bottom:6px">MI AI Live Call</div>
+      <div style="font-size:.85rem;color:var(--ts);margin-bottom:20px">Choose language / زبان منتخب کریں</div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:320px">
+        <button onclick="startCall('en-US','English')" style="padding:12px 20px;border-radius:12px;background:var(--bgi);border:2px solid var(--p);color:var(--pl);font-size:.9rem;cursor:pointer;font-family:var(--fm)">🇬🇧 English</button>
+        <button onclick="startCall('ur-PK','Urdu')" style="padding:12px 20px;border-radius:12px;background:var(--bgi);border:2px solid var(--gold);color:var(--gold);font-size:.9rem;cursor:pointer;font-family:var(--fa)">🇵🇰 اردو</button>
+        <button onclick="startCall('ar-SA','Arabic')" style="padding:12px 20px;border-radius:12px;background:var(--bgi);border:2px solid var(--s);color:var(--s);font-size:.9rem;cursor:pointer;font-family:var(--fa)">🇸🇦 عربی</button>
+        <button onclick="startCall('hi-IN','Hindi')" style="padding:12px 20px;border-radius:12px;background:var(--bgi);border:2px solid var(--ts);color:var(--ts);font-size:.9rem;cursor:pointer;font-family:var(--fm)">🇮🇳 Hindi</button>
+      </div>
+      <button onclick="endCall()" style="margin-top:18px;padding:12px 24px;border-radius:12px;background:var(--acc);border:none;color:#fff;cursor:pointer;font-size:.88rem">❌ Cancel</button>
+    `;
+    return;
+  }
+  callLang=lang; callLangLabel=langLabel||'English';
   callActive=true;callHistory=[];callMuted=false;
-  document.getElementById('call-overlay').classList.add('show');
-  setCallStatus('Connecting to MI AI...');
-  setCallTranscript('');
-  setTimeout(()=>{
-    setCallStatus('Connected! Listening...');
-    setWaveMode('listening');
-    greetCall();
-  },1000);
+  const ov2=document.getElementById('call-overlay');
+  ov2.classList.add('show');ov2.style.display='flex';
+  ov2.innerHTML=`
+    <div class="call-avatar" id="call-avatar" style="font-size:3.5rem">🤖</div>
+    <div class="call-name">MI AI Assistant</div>
+    <span class="call-lang-badge">${callLangLabel==='Urdu'||callLangLabel==='Arabic'?'<span class="call-rtl">'+callLangLabel+'</span>':callLangLabel} 🎙️</span>
+    <div class="call-wave" id="call-wave"><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="call-status" id="call-status">Connecting...</div>
+    <div class="call-transcript" id="call-transcript" style="${callLang==='ur-PK'||callLang==='ar-SA'?'direction:rtl;font-family:var(--fa)':''}"></div>
+    <div id="call-ai-text" style="font-size:.82rem;color:var(--ts);max-width:340px;text-align:center;padding:0 18px;line-height:1.6;min-height:40px;${callLang==='ur-PK'||callLang==='ar-SA'?'direction:rtl;font-family:var(--fa)':''}"></div>
+    <div class="call-btns">
+      <button class="call-btn mute" id="call-mute-btn" onclick="toggleCallMute()" title="Mute/Unmute">🎤</button>
+      <button class="call-btn end" onclick="endCall()" title="End Call">📵</button>
+    </div>
+  `;
+  setTimeout(()=>{setCallStatus('Connected! Listening...');setWaveMode('listening');greetCall();},700);
 }
 
 async function greetCall(){
   setCallStatus('MI AI is speaking...');
   setWaveMode('ai');
-  const greeting='Assalamu Alaikum! I am MI AI, your intelligent assistant by Muaaz Iqbal. How can I help you today? You can ask me anything — about technology, Islam, trading, coding, or any topic.';
+  const greetings={
+    'en-US':'Assalamu Alaikum! I am MI AI, your intelligent assistant by Muaaz Iqbal from Muslim Islam Org. I can speak in English, Urdu, or Arabic. How can I help you today?',
+    'ur-PK':'السلام علیکم! میں MI AI ہوں، معاذ اقبال کا ذہین اسسٹنٹ۔ آپ مجھ سے کچھ بھی پوچھ سکتے ہیں — ٹیکنالوجی، اسلام، ٹریڈنگ، یا کوئی بھی موضوع۔ کیسے مدد کروں؟',
+    'ar-SA':'السلام عليكم! أنا MI AI، مساعدك الذكي من معاذ إقبال. يمكنك أن تسألني عن أي شيء. كيف يمكنني مساعدتك اليوم؟',
+    'hi-IN':'Assalamu Alaikum! Main MI AI hoon, Muaaz Iqbal ka intelligent assistant. Aap mujhse technology, Islam, trading, ya kuch bhi pooch sakte hain. Kaise madad karoon?'
+  };
+  const greeting=greetings[callLang]||greetings['en-US'];
   callHistory.push({role:'assistant',content:greeting});
+  setCallAIText(greeting);
   await speakCall(greeting);
   if(callActive&&!callMuted) startCallListening();
 }
@@ -1642,7 +1808,7 @@ function startCallListening(){
   if(!callActive||callSpeaking)return;
   const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
   callRec=new SR();
-  callRec.lang='en-US';callRec.interimResults=true;callRec.continuous=false;
+  callRec.lang=callLang||'en-US';callRec.interimResults=true;callRec.continuous=false;
   let finalText='';
   callRec.onstart=()=>{setCallStatus('Listening... speak now');setWaveMode('listening');};
   callRec.onresult=e=>{let interim='';for(let i=e.resultIndex;i<e.results.length;i++){if(e.results[i].isFinal)finalText+=e.results[i][0].transcript;else interim+=e.results[i][0].transcript;}setCallTranscript(finalText+interim);};
@@ -1653,20 +1819,29 @@ function startCallListening(){
 
 async function processCallInput(text){
   if(!callActive)return;
-  setCallStatus('You: '+text.substring(0,50)+'...');
-  setCallTranscript(text);
+  setCallStatus('You: '+text.substring(0,55)+'...');
+  setCallTranscript('🗣️ '+text);
+  setCallAIText('');
   callHistory.push({role:'user',content:text});
   setCallStatus('MI AI is thinking...');
   setWaveMode('silent');
   try{
-    const msgs=[{role:'system',content:'You are MI AI Voice Assistant by Muaaz Iqbal. Give BRIEF, CLEAR, CONVERSATIONAL responses suitable for voice/speech — maximum 3-4 sentences per response unless asked for more. Be warm and helpful. بِسْمِ اللَّهِ'},{role:'system',content:'IMPORTANT: Keep responses SHORT (2-4 sentences) for voice call. No markdown, no bullet points. Speak naturally.'},...callHistory.slice(-8)];
-    const resp=await qCall(text,mdl,'You are MI AI Voice Assistant. Keep responses SHORT (2-4 sentences max) and conversational — no bullet points, no markdown. Natural speech only.');
+    const langInstructions={
+      'ur-PK':'ALWAYS respond in Urdu language (Roman Urdu or Urdu script). Keep it conversational and brief (2-3 sentences). No markdown.',
+      'ar-SA':'ALWAYS respond in Arabic language. Keep it conversational and brief (2-3 sentences). No markdown.',
+      'hi-IN':'ALWAYS respond in Hindi/Hinglish. Keep it conversational and brief (2-3 sentences). No markdown.',
+      'en-US':'Respond in English. Keep it brief (2-3 sentences). No markdown, no bullet points. Conversational tone.'
+    };
+    const langInst=langInstructions[callLang]||langInstructions['en-US'];
+    const sys='You are MI AI, a warm friendly voice assistant by Muaaz Iqbal (Muslim Islam Org). '+langInst+' Never use bullet points or headers. Speak like a real person on a phone call.';
+    const resp=await qCall(text,mdl,sys,callHistory.slice(-10));
     callHistory.push({role:'assistant',content:resp});
+    setCallAIText(resp);
     setCallStatus('MI AI is speaking...');
     setWaveMode('ai');
     await speakCall(resp);
     if(callActive&&!callMuted)startCallListening();
-  }catch(e){setCallStatus('Error — retrying...');if(callActive&&!callMuted)setTimeout(startCallListening,1000);}
+  }catch(e){setCallStatus('Error — retrying...');if(callActive&&!callMuted)setTimeout(startCallListening,1200);}
 }
 
 function speakCall(text){
@@ -1677,8 +1852,15 @@ function speakCall(text){
     const u=new SpeechSynthesisUtterance(cleanText);
     u.rate=0.92;u.pitch=1;u.volume=1;
     const voices=window.speechSynthesis.getVoices();
-    const pref=voices.find(v=>v.lang.startsWith('en')&&v.name.includes('Google')&&v.name.includes('Female'))||voices.find(v=>v.lang.startsWith('en')&&v.name.includes('Google'))||voices.find(v=>v.lang.startsWith('en')&&!v.name.includes('Male'))||voices.find(v=>v.lang.startsWith('en'))||voices[0];
-    if(pref)u.voice=pref;
+    // Pick best voice for language
+    const targetLang=(callLang||'en-US').split('-')[0];
+    const pref=voices.find(v=>v.lang.startsWith(callLang)&&v.name.includes('Google'))
+      ||voices.find(v=>v.lang.startsWith(callLang))
+      ||voices.find(v=>v.lang.startsWith(targetLang)&&v.name.includes('Google'))
+      ||voices.find(v=>v.lang.startsWith(targetLang))
+      ||voices.find(v=>v.lang.startsWith('en')&&v.name.includes('Google'))
+      ||voices.find(v=>v.lang.startsWith('en'))||voices[0];
+    if(pref){u.voice=pref;u.lang=pref.lang;}else{u.lang=callLang||'en-US';}
     u.onend=()=>{callSpeaking=false;res();};
     u.onerror=()=>{callSpeaking=false;res();};
     window.speechSynthesis.speak(u);
@@ -1689,7 +1871,8 @@ function endCall(){
   callActive=false;callSpeaking=false;
   if(callRec)try{callRec.stop();}catch(e){}
   window.speechSynthesis.cancel();
-  document.getElementById('call-overlay').classList.remove('show');
+  const _endOv=document.getElementById('call-overlay');
+  _endOv.classList.remove('show');_endOv.style.display='none';
   if(callHistory.length>2){
     const summary=callHistory.filter(m=>m.role==='user').map(m=>m.content).join('\n');
     addMsg('assistant','📞 **Call Ended**\n\nThe AI call has ended. Here is a summary of topics discussed:\n\n'+summary.substring(0,500),true);
@@ -1708,6 +1891,7 @@ function toggleCallMute(){
 
 function setCallStatus(txt){const el=document.getElementById('call-status');if(el)el.textContent=txt;}
 function setCallTranscript(txt){const el=document.getElementById('call-transcript');if(el)el.textContent=txt;}
+function setCallAIText(txt){const el=document.getElementById('call-ai-text');if(el)el.textContent=txt?'🤖 '+txt.substring(0,200)+(txt.length>200?'...':''):'';}
 function setWaveMode(mode){
   const wave=document.getElementById('call-wave');
   const avatar=document.getElementById('call-avatar');
