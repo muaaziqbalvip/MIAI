@@ -565,7 +565,7 @@ html,body{height:100%;overflow:hidden;font-family:var(--fm);background:var(--bg)
           <option value="meta-llama/llama-4-maverick-17b-128e-instruct">Llama 4 Maverick</option>
           <option value="meta-llama/llama-4-scout-17b-16e-instruct">Llama 4 Scout</option>
           <option value="compound-beta">Compound Beta</option>
-          <option value="compound-beta-mini">Compound Beta Mini</option>
+          <option value="compound-beta-mini" selected>Compound Beta Mini</option>
           <option value="llama3-groq-70b-8192-tool-use-preview">Llama 70B Tools</option>
         </select>
       </div>
@@ -1283,7 +1283,7 @@ const auth=firebase.auth(),db=firebase.database();
 
 // ── STATE ──
 let CU=null,cid=null,hist=[],ufiles=[],isGen=false,abrt=null;
-let mode='chat',mdl='llama-3.3-70b-versatile',iSz='512x512';
+let mode='chat',mdl='compound-beta-mini',iSz='512x512';
 
 // ── SYSTEM PROMPTS ──
 const SYS={
@@ -2040,8 +2040,9 @@ async function autoGenImage(topic){
 // ══════════════════════════════
 // LIVE AI CALL SYSTEM v2 — Multilingual, Real-time, Natural
 // ══════════════════════════════
-let callActive=false,callMuted=false,callRec=null,callSpeaking=false;
+let callActive=false,callMuted=false,callRec=null,callSpeaking=false,callListening=false;
 let callHistory=[],callLang='en-US',callLangLabel='English';
+let callSilenceTimer=null,callFinalText='',callUtteranceDone=true;
 
 function startCall(lang,langLabel){
   const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
@@ -2065,7 +2066,7 @@ function startCall(lang,langLabel){
     return;
   }
   callLang=lang; callLangLabel=langLabel||'English';
-  callActive=true;callHistory=[];callMuted=false;
+  callActive=true;callHistory=[];callMuted=false;callSpeaking=false;callListening=false;callUtteranceDone=true;callFinalText='';
   pauseMusicForCall();
   const ov2=document.getElementById('call-overlay');
   ov2.classList.add('show');ov2.style.display='flex';
@@ -2074,7 +2075,7 @@ function startCall(lang,langLabel){
     <div class="call-name">MI AI Assistant</div>
     <span class="call-lang-badge">${callLangLabel==='Urdu'||callLangLabel==='Arabic'?'<span class="call-rtl">'+callLangLabel+'</span>':callLangLabel} 🎙️</span>
     <div class="call-wave" id="call-wave"><span></span><span></span><span></span><span></span><span></span></div>
-    <div class="call-status" id="call-status">Connecting...</div>
+    <div class="call-status" id="call-status">📞 Ringing...</div>
     <div class="call-transcript" id="call-transcript" style="${callLang==='ur-PK'||callLang==='ar-SA'?'direction:rtl;font-family:var(--fa)':''}"></div>
     <div id="call-ai-text" style="font-size:.82rem;color:var(--ts);max-width:340px;text-align:center;padding:0 18px;line-height:1.6;min-height:40px;${callLang==='ur-PK'||callLang==='ar-SA'?'direction:rtl;font-family:var(--fa)':''}"></div>
     <div class="call-btns">
@@ -2082,11 +2083,15 @@ function startCall(lang,langLabel){
       <button class="call-btn end" onclick="endCall()" title="End Call">📵</button>
     </div>
   `;
-  setTimeout(()=>{setCallStatus('Connected! Listening...');setWaveMode('listening');greetCall();},700);
+  setWaveMode('silent');
+  // Real-call feel: ring → connect → THEN AI picks up and greets (AI never speaks before it's ready)
+  setTimeout(()=>{if(callActive)setCallStatus('📞 Connecting...');},900);
+  setTimeout(()=>{if(callActive){setCallStatus('✅ Connected');greetCall();}},2000);
 }
 
 async function greetCall(){
-  setCallStatus('MI AI is speaking...');
+  if(!callActive)return;
+  setCallStatus('🤖 MI AI is speaking...');
   setWaveMode('ai');
   const greetings={
     'en-US':'Assalamu Alaikum! I am MI AI, your intelligent assistant by Muaaz Iqbal from Muslim Islam Org. I can speak in English, Urdu, or Arabic. How can I help you today?',
@@ -2101,17 +2106,51 @@ async function greetCall(){
   if(callActive&&!callMuted) startCallListening();
 }
 
+// Finalizes one user utterance exactly once (guards against double-fire from
+// the silence-timer AND the recognizer's own onend event), then either sends
+// the captured text for processing or quietly re-arms the mic.
+function finalizeUtterance(isError){
+  if(callUtteranceDone)return;
+  callUtteranceDone=true;
+  if(callSilenceTimer){clearTimeout(callSilenceTimer);callSilenceTimer=null;}
+  callListening=false;
+  const text=callFinalText.trim();
+  if(callRec){try{callRec.onresult=null;callRec.onend=null;callRec.onerror=null;callRec.stop();}catch(e){}}
+  if(text&&callActive){
+    processCallInput(text);
+  }else if(callActive&&!callMuted&&!callSpeaking){
+    setTimeout(startCallListening,isError?900:500);
+  }
+}
+
 function startCallListening(){
-  if(!callActive||callSpeaking)return;
+  if(!callActive||callSpeaking||callMuted||callListening)return;
   const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  callListening=true;callUtteranceDone=false;callFinalText='';
   callRec=new SR();
-  callRec.lang=callLang||'en-US';callRec.interimResults=true;callRec.continuous=false;
-  let finalText='';
-  callRec.onstart=()=>{setCallStatus('Listening... speak now');setWaveMode('listening');};
-  callRec.onresult=e=>{let interim='';for(let i=e.resultIndex;i<e.results.length;i++){if(e.results[i].isFinal)finalText+=e.results[i][0].transcript;else interim+=e.results[i][0].transcript;}setCallTranscript(finalText+interim);};
-  callRec.onend=()=>{if(finalText.trim()&&callActive)processCallInput(finalText.trim());else if(callActive&&!callMuted){setTimeout(startCallListening,500);}};
-  callRec.onerror=e=>{if(e.error!=='aborted'&&e.error!=='no-speech'&&callActive){setCallStatus('Error: '+e.error+' — retrying...');setTimeout(()=>{if(callActive&&!callMuted)startCallListening();},1000);}else if(e.error==='no-speech'&&callActive&&!callMuted){setTimeout(startCallListening,300);}};
-  try{callRec.start();}catch(e){setCallStatus('Mic error: '+e.message);}
+  callRec.lang=callLang||'en-US';
+  callRec.interimResults=true;
+  callRec.continuous=true; // keep one mic session open per turn — no rapid restart "beep" loop
+  callRec.onstart=()=>{setCallStatus('🎙️ Listening... speak now');setWaveMode('listening');};
+  callRec.onresult=e=>{
+    let interim='';
+    for(let i=e.resultIndex;i<e.results.length;i++){
+      if(e.results[i].isFinal)callFinalText+=e.results[i][0].transcript+' ';
+      else interim+=e.results[i][0].transcript;
+    }
+    setCallTranscript((callFinalText+interim).trim());
+    // Wait for a real pause in speech (not just a tiny gap) before treating
+    // the sentence as complete, so full words/sentences are captured.
+    if(callSilenceTimer)clearTimeout(callSilenceTimer);
+    callSilenceTimer=setTimeout(()=>finalizeUtterance(false),1400);
+  };
+  callRec.onerror=e=>{
+    if(e.error==='aborted')return; // caused by our own manual stop — ignore
+    if(e.error==='no-speech'){finalizeUtterance(false);return;}
+    finalizeUtterance(true);
+  };
+  callRec.onend=()=>{finalizeUtterance(false);};
+  try{callRec.start();}catch(e){callListening=false;callUtteranceDone=true;}
 }
 
 async function processCallInput(text){
@@ -2124,10 +2163,10 @@ async function processCallInput(text){
   try{
     // Emotional + language-aware system prompt
     const langMap={
-      'ur-PK':'اردو میں جواب دو۔ جذبات کے ساتھ، دوستانہ لہجے میں۔ 1-2 جملے۔ کوئی bullet نہیں۔',
-      'ar-SA':'أجب باللغة العربية. بأسلوب ودي عاطفي. جملة أو جملتان فقط. بدون نقاط.',
-      'hi-IN':'Hindi mein jawab do. Dosto wali baat. 1-2 sentences. Bullets mat.',
-      'en-US':'Reply in English. 1-2 sentences max. Warm, emotional, natural. No bullets.'
+      'ur-PK':'اردو میں جواب دو۔ جذبات کے ساتھ، دوستانہ لہجے میں۔ 2-3 مکمل جملے۔ کوئی bullet نہیں۔',
+      'ar-SA':'أجب باللغة العربية. بأسلوب ودي عاطفي. جملتان أو ثلاث جمل كاملة. بدون نقاط.',
+      'hi-IN':'Hindi mein jawab do. Dosto wali baat. 2-3 complete sentences. Bullets mat.',
+      'en-US':'Reply in English. 2-3 complete sentences max. Warm, emotional, natural. No bullets.'
     };
     const emo={
       'ur-PK':'آپ ایک ذہین، گرمجوش AI ہیں جو جذبات سمجھتا ہے۔ خوشی پر خوش ہوں، غم پر ہمدردی دکھائیں۔',
@@ -2139,11 +2178,11 @@ async function processCallInput(text){
 ${emo[callLang]||emo['en-US']}
 ${langMap[callLang]||langMap['en-US']}
 STRICT RULES:
-- Max 2 short sentences. Never more.
+- Always finish your thought in 2-3 complete sentences — never cut off mid-sentence, never leave an idea unfinished.
 - NO markdown, NO bullets, NO headers, NO asterisks
 - Sound like a caring real person on a phone call
 - Match emotion: laugh, comfort, excite based on what user says
-- If asked complex question: give brief answer + say "main detail mein bata sakta hoon"`;
+- If asked a deep/complex question: give one complete, useful answer in plain words, then offer "main isay aur detail mein bata sakta hoon agar chahein"`;
 
     // Use fastest model for call
     const callModel='llama-3.1-8b-instant';
@@ -2168,8 +2207,10 @@ STRICT RULES:
 function speakCall(text){
   return new Promise(res=>{
     callSpeaking=true;
+    // Make sure the mic is fully off while the AI is talking — no interruptions.
+    if(callListening){callUtteranceDone=true;if(callSilenceTimer){clearTimeout(callSilenceTimer);callSilenceTimer=null;}if(callRec){try{callRec.onresult=null;callRec.onend=null;callRec.onerror=null;callRec.stop();}catch(e){}}callListening=false;}
     window.speechSynthesis.cancel();
-    const clean=(text||'').replace(/[#*`_\[\]()\u200B-\u200D]/g,'').replace(/\n+/g,' ').trim().substring(0,500);
+    const clean=(text||'').replace(/[#*`_\[\]()\u200B-\u200D]/g,'').replace(/\n+/g,' ').trim().substring(0,800);
     if(!clean){callSpeaking=false;res();return;}
 
     // Emotion detection for natural tone
@@ -2178,7 +2219,8 @@ function speakCall(text){
     const isExcited=/wow|excellent|fantastic|incredible|بہترین|شاندار|رائع/i.test(clean);
 
     const u=new SpeechSynthesisUtterance(clean);
-    u.rate=isExcited?1.1:isSad?0.87:1.0;
+    const rate=isExcited?1.1:isSad?0.87:1.0;
+    u.rate=rate;
     u.pitch=isHappy||isExcited?1.12:isSad?0.9:1.02;
     u.volume=1;
     u.lang=callLang||'en-US';
@@ -2194,9 +2236,12 @@ function speakCall(text){
       ||voices.find(v=>v.lang.startsWith('en'))||voices[0];
     if(pref)u.voice=pref;
 
-    // Timeout so call never hangs
-    const to=setTimeout(()=>{window.speechSynthesis.cancel();callSpeaking=false;res();},Math.min(clean.length*110,10000));
-    // Chrome TTS keep-alive
+    // Safety-net timeout only — generous enough that real speech always
+    // finishes naturally via onend; this just prevents the call hanging if
+    // the browser's TTS engine silently fails to fire onend.
+    const estMs=(clean.length*95)/rate;
+    const to=setTimeout(()=>{window.speechSynthesis.cancel();callSpeaking=false;res();},Math.min(Math.max(estMs,4000),25000));
+    // Chrome TTS keep-alive (some browsers pause long utterances after ~15s)
     const ka=setInterval(()=>{if(!callSpeaking){clearInterval(ka);return;}if(window.speechSynthesis.paused)window.speechSynthesis.resume();},4000);
     u.onend=()=>{clearTimeout(to);clearInterval(ka);callSpeaking=false;res();};
     u.onerror=()=>{clearTimeout(to);clearInterval(ka);callSpeaking=false;res();};
@@ -2205,8 +2250,9 @@ function speakCall(text){
 }
 
 function endCall(){
-  callActive=false;callSpeaking=false;
-  if(callRec)try{callRec.stop();}catch(e){}
+  callActive=false;callSpeaking=false;callMuted=false;callListening=false;callUtteranceDone=true;
+  if(callSilenceTimer){clearTimeout(callSilenceTimer);callSilenceTimer=null;}
+  if(callRec){try{callRec.onresult=null;callRec.onend=null;callRec.onerror=null;callRec.stop();}catch(e){}}
   window.speechSynthesis.cancel();
   const _endOv=document.getElementById('call-overlay');
   _endOv.classList.remove('show');_endOv.style.display='none';
@@ -2223,7 +2269,14 @@ function toggleCallMute(){
   const btn=document.getElementById('call-mute-btn');
   btn.textContent=callMuted?'🔇':'🎤';
   btn.classList.toggle('on',callMuted);
-  if(callMuted){if(callRec)try{callRec.stop();}catch(e){}setCallStatus('Muted');}
+  if(callMuted){
+    callUtteranceDone=true;
+    if(callSilenceTimer){clearTimeout(callSilenceTimer);callSilenceTimer=null;}
+    if(callRec){try{callRec.onresult=null;callRec.onend=null;callRec.onerror=null;callRec.stop();}catch(e){}}
+    callListening=false;
+    setCallStatus('🔇 Muted');
+    setWaveMode('silent');
+  }
   else{setCallStatus('Unmuted — listening...');startCallListening();}
 }
 
