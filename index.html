@@ -2239,8 +2239,7 @@ ABSOLUTE RULES:
     const clean=(resp||'')
       .replace(/[*_#`~\[\](){}|\<>^]/g,'')
       .replace(/https?:\/\/\S+/g,'')
-      .replace(/
-+/g,' ')
+      .replace(/[\r\n]+/g, ' ')
       .replace(/\s{2,}/g,' ')
       .replace(/[""'']/g,"'")
       .trim()
@@ -2270,8 +2269,7 @@ function speakCall(text){
 
     const clean=(text||'')
       .replace(/[#*`_\[\](){}~\<>|^]/g,'')
-      .replace(/
-+/g,' ')
+      .replace(/[\r\n]+/g, ' ')
       .replace(/\s{2,}/g,' ')
       .trim()
       .substring(0,450);
